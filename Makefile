@@ -1,6 +1,6 @@
 COMPILER=gcc
 
-PROJECTFLAGS:=-lncurses
+PROJECTFLAGS:=-lncurses -ljansson
 FLAGS:=$(PROJECTFLAGS) -I. -ggdb -std=c11
 
 COMPILEFLAGS=$(FLAGS) -fPIC
