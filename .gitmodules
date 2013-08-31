@@ -1,0 +1,3 @@
+[submodule "lib/tinydir"]
+	path = lib/tinydir
+	url = git@github.com:cg505/tinydir.git
