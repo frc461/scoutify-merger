@@ -1,6 +1,8 @@
 #ifndef ARGUMENT_H
 #define ARGUMENT_H
 
+#include <stdbool.h>
+
 typedef struct argument {
 	char *value;
 	int index;
@@ -23,5 +25,8 @@ argument_t *argument_get_last_in_linked_list();
 void argument_build_list_from_arguments(int argc, char *argv[]);
 
 void argument_debug_list();
+
+typedef struct argument_execution_choices {
+} argument_execution_choices_t;
 
 #endif
