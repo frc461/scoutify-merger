@@ -25,6 +25,11 @@ void argument_insert_after_argument(argument_t *argument, argument_t *to_insert)
 	if(argument->next != NULL) {
 		printf("insertion detected previous next @0x%x w/ parent @0x%x\n", argument->next, argument);
 		printf("%4s(we'll make a copy and then insert that as the next of the insertion)\n". "");
+
+		argument_t *previous_next = argument->next;
+		argument->next = to_insert;
+		argument->next->next = previous_next();
+		
 	}
 	argument->next = to_insert;
 }
