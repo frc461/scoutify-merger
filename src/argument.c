@@ -12,15 +12,18 @@ argument_t *_argument_new_()
 
 argument_t *argument_new_from_data(int argc, char *argv)
 { argument_t *ret = _argument_new_();
-	ret->value = argv;
-	ret->index = argc;
 
+	argument_set_data(ret, argc, argv);
+	
 	return ret;
 }
 
 argument_t *argument_new_from_data_after_argument(int argc, char *argv, argument_t *argument)
 { argument_t *ret = argument_new_from_data(argc, argv);
+
+	argument_insert_after_argument(argument, ret);
 	
+	return ret;
 }
 
 void argument_insert_after_argument(argument_t *argument, argument_t *to_insert)
@@ -31,13 +34,19 @@ void argument_insert_after_argument(argument_t *argument, argument_t *to_insert)
 
 		argument_t *previous_next = argument->next;
 		argument->next = to_insert;
-		argument->next->next = previous_next;
-		
+		argument->next->next = previous_next;	
 	}
+	
 	argument->next = to_insert;
 }
 
-argument_t *argument_last_in_linked_list()
+void argument_set_data(argument_t *argument, int index, char *value)
+{
+	argument->value = value;
+	argument->index = index;
+}
+
+argument_t *argument_get_last_in_linked_list()
 {
 	argument_t *i = _root_argument_;
 

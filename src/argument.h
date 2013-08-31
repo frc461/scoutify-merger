@@ -16,6 +16,8 @@ argument_t *argument_new_from_data_after_argument(int argc, char *argv, argument
 
 void argument_insert_after_argument(argument_t *argument, argument_t *to_insert);
 
-argument_t *argument_last_in_linked_list();
+void argument_set_data(argument_t *argument, int index, char *value);
+
+argument_t *argument_get_last_in_linked_list();
 
 #endif
