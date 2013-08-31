@@ -20,5 +20,5 @@ $(PROGRAMFILE): $(PROGRAMOBJECTS)
 	$(COMPILER) -o $(PROGRAMFILE) $(PROGRAMOBJECTS) $(LINKFLAGS)
 
 clean:
-	/bin/bash -c 'if [ -e bin/* ]; then rm bin/*; fi'
-	/bin/bash -c 'if [ -e obj/* ]; then rm obj/*; fi'
+	rm obj/*
+	rm bin/*

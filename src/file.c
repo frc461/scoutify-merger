@@ -62,10 +62,8 @@ team_t *load_team_dir(char *dir_path, char *team)
 	else return team_new_from_data((unsigned int)atoi(team), "", matches);
 }
 
-team_t **load_dot_scoutify(char *dsf_path)
-{   team_t **ret = malloc(sizeof(team_t)*256); // maybe instead this function should just
-	                                           // add directly to the global db?
-	int i = 0;
+int load_dot_scoutify(char *dsf_path)
+{   int i = 0;
 	tinydir_dir dir;
 	tinydir_open(&dir, dsf_path);
 
@@ -82,7 +80,7 @@ team_t **load_dot_scoutify(char *dsf_path)
 			strcat(fullpath, file.name);
 			
 			if(team = load_team_dir(fullpath, file.name)) { // make sure there were matches
-				ret[i] = team; // add to team array
+				add_to_db(team); // add to team array
 				i++;
 			}
 		}
@@ -92,5 +90,6 @@ team_t **load_dot_scoutify(char *dsf_path)
 
 	tinydir_close(&dir);
 
-	return ret;
+	if(i == 0) return 1;
+	else return 0;
 }
