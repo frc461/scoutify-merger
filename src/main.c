@@ -10,7 +10,8 @@ int main(int argc, char *argv[])
 {
 	argument_build_list_from_arguments(argc, argv);
 	argument_debug_list();
-
+	argument_execution_choices_t *aect = argument_execution_choices_from_system_list();
+	
 	init_db();
 	if(argc < 2) return 0;
 

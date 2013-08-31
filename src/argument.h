@@ -26,7 +26,28 @@ void argument_build_list_from_arguments(int argc, char *argv[]);
 
 void argument_debug_list();
 
+int argument_get_number_of_elements_in_list();
+
+argument_t **argument_get_array_of_argument_pointers_from_system_list();
+
+typedef enum {
+	AE_STEP_MERGE,
+	AE_STEP_SORT,
+	AE_STEP_WRITE,
+	AE_STEP_DISPLAY,
+	
+	AE_STEP_MAX,
+} argument_execution_step_t;
+
 typedef struct argument_execution_choices {
+	argument_execution_step_t start;
+	argument_execution_step_t end;
+
+	char *in_file;
+	char *out_file;
 } argument_execution_choices_t;
+
+argument_execution_choices_t *argument_execution_choices_new();
+argument_execution_choices_t *argument_execution_choices_from_system_list();
 
 #endif

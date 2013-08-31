@@ -34,7 +34,7 @@ void argument_insert_after_argument(argument_t *argument, argument_t *to_insert)
 
 		argument_t *previous_next = argument->next;
 		argument->next = to_insert;
-		argument->next->next = previous_next;	
+		argument->next->next = previous_next;
 	}
 	
 	argument->next = to_insert;
@@ -81,3 +81,48 @@ void argument_debug_list()
 	printf("%8slast dtctd == { %d [@0x%x] \"%s\" }\n", "", last->index, last, last->value);
 }
 
+int argument_get_number_of_elements_in_list()
+{ int ret = 0;
+	argument_t *i = _root_argument_;
+
+	while(i != NULL) {
+		ret += 1;
+		i = i->next;
+	}
+
+	return ret;
+}
+
+argument_t **argument_get_array_of_argument_pointers_from_system_list()
+{ argument_t **ret = malloc(sizeof(argument_t *) * argument_get_number_of_elements_in_list());
+	unsigned int counter = 0;
+	argument_t *i = _root_argument_;
+	
+	while(i != NULL) {
+		ret[counter] = i;
+		counter += 1;
+		i = i->next;
+	}
+	
+	return ret;
+}
+
+argument_execution_choices_t *argument_execution_choices_new()
+{ argument_execution_choices_t *ret = malloc(sizeof(argument_execution_choices_t));
+	return ret;
+}
+
+argument_execution_choices_t *argument_execution_choices_from_system_list()
+{ argument_execution_choices_t *ret = argument_execution_choices_new();
+
+	printf("%d arguments in system list, building execution choices structure from that\n", argument_get_number_of_elements_in_list());
+
+	int argumentcount = argument_get_number_of_elements_in_list();
+	argument_t **arguments = argument_get_array_of_argument_pointers_from_system_list();
+
+	for(int i = 0; i < argumentcount; i += 1) {
+		printf("[%d @ 0x%x]\n", i, arguments[i]);
+	}
+	
+	return ret;
+}
