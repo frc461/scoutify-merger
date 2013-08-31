@@ -1,7 +1,16 @@
+#include <stdio.h>
+
+#include <src/argument.h>
+#include <src/database.h>
+#include <src/file.h>
+
 #include <src/main.h>
 
 int main(int argc, char *argv[])
 {
+	argument_build_list_from_arguments(argc, argv);
+	argument_debug_list();
+
 	init_db();
 	if(argc < 2) return 0;
 

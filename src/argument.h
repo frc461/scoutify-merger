@@ -20,4 +20,8 @@ void argument_set_data(argument_t *argument, int index, char *value);
 
 argument_t *argument_get_last_in_linked_list();
 
+void argument_build_list_from_arguments(int argc, char *argv[]);
+
+void argument_debug_list();
+
 #endif

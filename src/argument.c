@@ -55,3 +55,28 @@ argument_t *argument_get_last_in_linked_list()
 
 	return i;
 }
+
+void argument_build_list_from_arguments(int argc, char *argv[])
+{
+	_root_argument_ = argument_new_from_data(0, argv[0]);
+	
+	for(int i = 1; i < argc; i += 1) {
+		argument_t *new = argument_new_from_data_after_argument(i, argv[i], argument_get_last_in_linked_list());
+	}
+}
+
+void argument_debug_list()
+{
+
+	printf("DEBUG ARGLIST:\n");
+	argument_t *i = _root_argument_;
+	
+	while(i != NULL) {
+		printf("%4si => { %d [@ 0x%x] \"%s\" }\n", "", i->index, i, i->value);
+		i = i->next;
+	}
+
+	argument_t *last = argument_get_last_in_linked_list();
+	
+	printf("%8slast dtctd == { %d [@0x%x] \"%s\" }\n", "", last->index, last, last->value);
+}
