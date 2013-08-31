@@ -6,7 +6,7 @@ FLAGS:=$(PROJECTFLAGS) -I. -ggdb -std=c11
 COMPILEFLAGS=$(FLAGS) -fPIC
 LINKFLAGS=$(FLAGS)
 
-HEADERS=$(wildcard src/*.h) $(wildcard src/*/*.h)
+HEADERS=$(wildcard src/*.h) $(wildcard src/*/*.h) $(wildcard lib/*.h)
 PROGRAMOBJECTS=$(patsubst src/%.c,obj/%.o,$(wildcard src/*.c)) $(patsubst src/%.c,obj/%.o,$(wildcard src/*/*.c))
 
 PROGRAMFILE=bin/$(notdir $(shell pwd)).$(shell arch)

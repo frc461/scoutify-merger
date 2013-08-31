@@ -23,3 +23,25 @@ match_t *load_match_file(char *path, char *team)
 
 	return ret;
 }
+
+team_t *load_team_dir(char *dir_path, char *team)
+{   team_t *ret = team_new();
+	match_t **matches = malloc(sizeof(match_t)*20);
+	int i = 0;
+	tinydir_dir dir;
+	tinydir_open(&dir, dir_path);
+
+	while(dir.has_next) {
+		tinydir_file file;
+		tinydir_readfile(&dir, &file);
+
+		if(!file.is_dir) { // not a directory (assuming therefore regular file)
+			char *dot = strrchr(file.name, '.');
+			if (dot && !strcmp(dot, ".json")) { // ends w/ .json
+				matches[0] = load_match_file(strcat(dir_path, file.name), team); //load
+				i++;
+			}
+		}
+	}
+	return team_new_from_data((unsigned int)atoi(team), "", matches);
+}

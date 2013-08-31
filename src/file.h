@@ -1,10 +1,16 @@
 #ifndef FILE_H
 #define FILE_H
 
-#include <src/match.h>
-#include <src/json.h>
 #include <stdio.h>
+#include <stdlib.h>
+
+#include <lib/tinydir.h>
+
+#include <src/team.h>
+#include <src/json.h>
 
 match_t *load_match_file(char *path, char *team);
+
+team_t *load_team_dir(char *dir_path, char* team);
 
 #endif
