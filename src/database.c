@@ -8,6 +8,8 @@
  * ALWAYS USE THESE ABSTRACTION FUNCTIONS.
  */
 
+int db_end2 = 0;
+
 void init_db() { 
  	db = malloc(sizeof(team_t)*256);
 	db_end2 = 0;
