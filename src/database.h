@@ -3,7 +3,7 @@
 
 #include <src/team.h>
 
-team_t *db;
+team_t **db;
 // global database (array of teams)
 
 void init_db();
