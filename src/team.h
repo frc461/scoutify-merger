@@ -12,6 +12,7 @@ typedef struct team {
 
 team_t *team_new();
 team_t *team_new_from_data(unsigned int number, char name[128], match_t **matches);
+int team_set_from_data(team_t *in, unsigned int number, char name[128], match_t **matches);
 
 int team_free();
 

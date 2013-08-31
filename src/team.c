@@ -7,7 +7,7 @@
  * Simply creates, allocates, and returns an empty team structure (pointers inside may not be initialized!)
  */
 team_t *team_new()
-{ team_t *ret = (team_t *)malloc(sizeof(team_t));
+{ team_t *ret = malloc(sizeof(team_t));
 	return ret;
 }
 /*
@@ -25,6 +25,15 @@ team_t *team_new_from_data(unsigned int number, char name[128], match_t **matche
 	ret->matches = matches;
 
 	return ret;
+}
+
+int team_set_from_data(team_t *in, unsigned int number, char name[128], match_t **matches)
+{
+	in->number = number;
+	strcpy(in->name, name);
+	in->matches = matches;
+
+	return 0;
 }
 
 int team_free();

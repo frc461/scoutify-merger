@@ -5,6 +5,7 @@
 
 int main(int argc, char *argv[])
 {
+	init_db();
 	if(argc < 2) return 0;
 	json_t *json;
 	json_error_t error;
@@ -14,7 +15,7 @@ int main(int argc, char *argv[])
 		printf("error\n");
 	}
 	else {
-		printf(json_dumps(json, 0));
+		printf(json_string_value(json_object_get(json, "team")));
 		printf("\n");
 	}
 	return 0;
