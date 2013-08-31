@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 
 #include <src/argument.h>
 
@@ -121,7 +123,27 @@ argument_execution_choices_t *argument_execution_choices_from_system_list()
 	argument_t **arguments = argument_get_array_of_argument_pointers_from_system_list();
 
 	for(int i = 0; i < argumentcount; i += 1) {
-		printf("[%d @ 0x%x]\n", i, arguments[i]);
+		printf("[%d @ 0x%x] is \"%s\"", i, arguments[i], arguments[i]->value);
+
+		for(int j = 0; j < strlen(arguments[i]->value); j += 1) {
+			arguments[i]->value[j] = tolower(arguments[i]->value[j]);
+		}
+
+		/*
+		 * check if argument is a file specification of any sort
+		 */
+		if(arguments[i]->value[1] == 'f' &&
+		   arguments[i]->value[2] == '=') {
+			if(arguments[i]->value[0] == 'i') {
+				ret->in_file = arguments[i]->value;
+			}
+			
+			if(arguments[i]->value[0] == 'o') {
+				ret->out_file = arguments[i]->value;
+			}
+		}
+
+		printf("\n");
 	}
 	
 	return ret;
