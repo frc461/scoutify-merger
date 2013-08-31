@@ -125,6 +125,9 @@ argument_execution_choices_t *argument_execution_choices_from_system_list()
 	for(int i = 0; i < argumentcount; i += 1) {
 		printf("[%d @ 0x%x] is \"%s\"", i, arguments[i], arguments[i]->value);
 
+		/*
+		 * convert entire argument to lowercase (easier to parse that way)
+		 */
 		for(int j = 0; j < strlen(arguments[i]->value); j += 1) {
 			arguments[i]->value[j] = tolower(arguments[i]->value[j]);
 		}
