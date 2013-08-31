@@ -7,12 +7,12 @@ match_t *load_match_file(char *path, char *team)
 
 	json = json_load_file(path, 0, &error);
 	if(!json) {
-		perror("ERROR: %s\n", error.text);
+		fprintf(stderr, "ERROR: %s\n", error.text);
 		return NULL;
 	}
 	
 	if(team && strcmp(team, json_string_value(json_object_get(json, "team")))) {
-		perror("ERROR: Teams do not match. (\"%s\" and \"%s\")\n", team, json_string_value(json_object_get(json, "team")));
+		fprintf(stderr, "ERROR: Teams do not match. (\"%s\" and \"%s\")\n", team, json_string_value(json_object_get(json, "team")));
 		return NULL;
 	}
 
