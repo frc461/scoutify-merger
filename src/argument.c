@@ -123,30 +123,34 @@ argument_execution_choices_t *argument_execution_choices_from_system_list()
 	argument_t **arguments = argument_get_array_of_argument_pointers_from_system_list();
 
 	for(int i = 0; i < argumentcount; i += 1) {
-		printf("[%d @ 0x%x] is \"%s\"", i, arguments[i], arguments[i]->value);
+		printf("[%d @ 0x%x] is \"%s\"\n", i, arguments[i], arguments[i]->value);
+	}
 
-		/*
-		 * convert entire argument to lowercase (easier to parse that way)
-		 */
+	for(int i = 0; i < argumentcount; i += 1) {
 		for(int j = 0; j < strlen(arguments[i]->value); j += 1) {
 			arguments[i]->value[j] = tolower(arguments[i]->value[j]);
 		}
-
-		/*
-		 * check if argument is a file specification of any sort
-		 */
+	}
+	
+	for(int i = 0; i < argumentcount; i += 1) {
 		if(arguments[i]->value[1] == 'f' &&
 		   arguments[i]->value[2] == '=') {
 			if(arguments[i]->value[0] == 'i') {
 				ret->in_file = arguments[i]->value;
-			}
-			
-			if(arguments[i]->value[0] == 'o') {
+				ret->in_file_definition_index = i;
+			} else if(arguments[i]->value[0] == 'o') {
 				ret->out_file = arguments[i]->value;
+				ret->out_file_definition_index = i;
+			} else {
+				printf("err: malformed argument: %s (skipping)!\n", arguments[i]->value);
 			}
 		}
-
-		printf("\n");
+	}
+	
+	for(int i = 0; i < argumentcount; i += 1) {
+		if(strcmp(arguments[i]->value, "sort") == 0 ||
+		   strcmp(arguments[i]->value, "s") == 0) {
+		}
 	}
 	
 	return ret;

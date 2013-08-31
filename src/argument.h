@@ -26,7 +26,6 @@ argument_t **argument_get_array_of_argument_pointers_from_system_list();
 int argument_get_number_of_elements_in_list();
 void argument_debug_list();
 
-
 typedef enum {
 	AE_STEP_MERGE,
 	AE_STEP_SORT,
@@ -42,6 +41,11 @@ typedef struct argument_execution_choices {
 
 	char *in_file;
 	char *out_file;
+	
+	int in_file_definition_index;
+	int out_file_definition_index;
+
+	int in_out_file_defined;
 } argument_execution_choices_t;
 
 argument_execution_choices_t *argument_execution_choices_new();
