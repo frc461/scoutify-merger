@@ -122,6 +122,9 @@ argument_execution_choices_t *argument_execution_choices_from_system_list()
 	int argumentcount = argument_get_number_of_elements_in_list();
 	argument_t **arguments = argument_get_array_of_argument_pointers_from_system_list();
 
+	ret->in_file_definition_index = 0;
+	ret->out_file_definition_index = 0;
+
 	for(int i = 0; i < argumentcount; i += 1) {
 		printf("[%d @ 0x%x] is \"%s\"\n", i, arguments[i], arguments[i]->value);
 	}
@@ -144,12 +147,6 @@ argument_execution_choices_t *argument_execution_choices_from_system_list()
 			} else {
 				printf("err: malformed argument: %s (skipping)!\n", arguments[i]->value);
 			}
-		}
-	}
-	
-	for(int i = 0; i < argumentcount; i += 1) {
-		if(strcmp(arguments[i]->value, "sort") == 0 ||
-		   strcmp(arguments[i]->value, "s") == 0) {
 		}
 	}
 	
