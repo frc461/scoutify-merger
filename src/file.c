@@ -26,7 +26,7 @@ match_t *load_match_file(char *path, char *team)
 
 team_t *load_team_dir(char *dir_path, char *team)
 {   team_t *ret = team_new();
-	match_t **matches = malloc(sizeof(match_t)*20);
+	match_t **matches = malloc(sizeof(match_t)*128);
 	int i = 0;
 	tinydir_dir dir;
 	tinydir_open(&dir, dir_path);
@@ -47,7 +47,7 @@ team_t *load_team_dir(char *dir_path, char *team)
 				strcat(fullpath, file.name);
 				
 				if(match = load_match_file(fullpath, team)) { // make sure there were no errors
-					matches[0] = match; // add to matches
+					matches[i] = match; // add to matches
 					i++;
 				}
 			}
@@ -57,10 +57,40 @@ team_t *load_team_dir(char *dir_path, char *team)
 	}
 
 	tinydir_close(&dir);
-	
-	return team_new_from_data((unsigned int)atoi(team), "", matches);
+
+	if(i == 0) return NULL;
+	else return team_new_from_data((unsigned int)atoi(team), "", matches);
 }
 
 team_t **load_dot_scoutify(char *dsf_path)
-{   team_t **ret;
+{   team_t **ret = malloc(sizeof(team_t)*256); // maybe instead this function should just
+	                                           // add directly to the global db?
+	int i = 0;
+	tinydir_dir dir;
+	tinydir_open(&dir, dsf_path);
+
+	while(dir.has_next) {
+		tinydir_file file;
+		char *fullpath = malloc((strlen(dsf_path)+8)*sizeof(char));
+		team_t *team;
+		tinydir_readfile(&dir, &file);
+
+		if(file.is_dir) { // a directory, assuming to be a team dir
+			
+			strcpy(fullpath, dsf_path);
+			strcat(fullpath, "/");
+			strcat(fullpath, file.name);
+			
+			if(team = load_team_dir(fullpath, file.name)) { // make sure there were matches
+				ret[i] = team; // add to team array
+				i++;
+			}
+		}
+
+		tinydir_next(&dir);
+	}
+
+	tinydir_close(&dir);
+
+	return ret;
 }

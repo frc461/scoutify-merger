@@ -2,15 +2,20 @@
 
 int main(int argc, char *argv[])
 {
-	team_t *team;
+	team_t **teams;
 	init_db();
 	if(argc < 2) return 0;
 
-	team = load_team_dir(argv[1], &strrchr(argv[1], '/')[1]);
+	teams = load_dot_scoutify(argv[1]);
 
-	printf("Position: %s\n", team->matches[0]->position);
-	printf("Round: %s\n", team->matches[0]->round);
-	printf("Notes: %s\n", team->matches[0]->notes);
+	for(int i = 0; teams[i]; i++) {
+		printf("TEAM: %u\n", teams[i]->number);
+		for(int j = 0; teams[i]->matches[j]; j++) {
+			printf("Position: %s\n", teams[i]->matches[j]->position);
+			printf("Round: %s\n", teams[i]->matches[j]->round);
+			printf("Notes: %s\n", teams[i]->matches[j]->notes);
+		}
+	}
 
 	return 0;
 }

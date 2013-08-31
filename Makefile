@@ -1,6 +1,6 @@
 COMPILER=gcc
 
-PROJECTFLAGS:=-lncurses -ljansson
+PROJECTFLAGS:=-ljansson
 FLAGS:=$(PROJECTFLAGS) -I. -ggdb -std=c11
 
 COMPILEFLAGS=$(FLAGS) -fPIC
@@ -20,5 +20,5 @@ $(PROGRAMFILE): $(PROGRAMOBJECTS)
 	$(COMPILER) -o $(PROGRAMFILE) $(PROGRAMOBJECTS) $(LINKFLAGS)
 
 clean:
-	rm bin/*
-	rm obj/*.o
+	/bin/bash -c 'if [ -e bin/* ]; then rm bin/*; fi'
+	/bin/bash -c 'if [ -e obj/* ]; then rm obj/*; fi'
