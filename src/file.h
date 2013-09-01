@@ -8,7 +8,7 @@
 
 #include <src/team.h>
 #include <src/json.h>
-#include <src/database.h>
+#include <src/merge.h>
 
 match_t *load_match_file(char *path, char *team);
 

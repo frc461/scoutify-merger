@@ -16,10 +16,14 @@ int main(int argc, char *argv[])
 	if(argc < 2) return 0;
 
 	load_dot_scoutify(argv[1]);
+	if(argc > 2) load_dot_scoutify(argv[2]);
+
+	merge_teams();
 
 	for(int i = 0; get_nth_db_element(i); i++) {
 		printf("TEAM: %u\n", get_nth_db_element(i)->number);
-		for(int j = 0; get_nth_db_element(i)->matches[j]; j++) {
+		printf("num matches: %u\n", get_nth_db_element(i)->num_matches);
+		for(int j = 0; j < get_nth_db_element(i)->num_matches; j++) {
 			printf("Position: %s\n", get_nth_db_element(i)->matches[j]->position);
 			printf("Round: %s\n", get_nth_db_element(i)->matches[j]->round);
 			printf("Notes: %s\n", get_nth_db_element(i)->matches[j]->notes);

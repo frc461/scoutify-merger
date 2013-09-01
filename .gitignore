@@ -17,3 +17,6 @@
 *.app
 *.i*86
 *.x86_64
+
+# Tag table
+src/TAGS
