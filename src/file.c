@@ -26,7 +26,7 @@ match_t *load_match_file(char *path, char *team)
 
 team_t *load_team_dir(char *dir_path, char *team)
 {   team_t *ret = team_new();
-	match_t **matches = malloc(sizeof(match_t)*128);
+	match_t **matches = malloc(sizeof(match_t *)*128);
 	int i = 0;
 	tinydir_dir dir;
 	tinydir_open(&dir, dir_path);
@@ -38,7 +38,7 @@ team_t *load_team_dir(char *dir_path, char *team)
 		tinydir_readfile(&dir, &file);
 
 		if(!file.is_dir) { // not a directory (assuming therefore regular file)
-			
+
 			char *dot = strrchr(file.name, '.');
 			if(dot && !strcmp(dot, ".json")) { // ends w/ .json
 
@@ -59,7 +59,7 @@ team_t *load_team_dir(char *dir_path, char *team)
 	tinydir_close(&dir);
 
 	if(i == 0) return NULL;
-	else return team_new_from_data((unsigned int)atoi(team), "", matches);
+	else return team_new_from_data((unsigned int)atoi(team), "", matches, i);
 }
 
 int load_dot_scoutify(char *dsf_path)
@@ -73,14 +73,15 @@ int load_dot_scoutify(char *dsf_path)
 		team_t *team;
 		tinydir_readfile(&dir, &file);
 
-		if(file.is_dir) { // a directory, assuming to be a team dir
+		if(file.is_dir && // a directory, assuming to be a team dir
+		   (strcmp(".", file.name) && strcmp("..", file.name))) { // is not . or ..
 			
 			strcpy(fullpath, dsf_path);
 			strcat(fullpath, "/");
 			strcat(fullpath, file.name);
 			
 			if(team = load_team_dir(fullpath, file.name)) { // make sure there were matches
-				add_to_db(team); // add to team array
+				add_to_db(team); // add to db
 				i++;
 			}
 		}

@@ -11,7 +11,7 @@ PROGRAMOBJECTS=$(patsubst src/%.c,obj/%.o,$(wildcard src/*.c)) $(patsubst src/%.
 
 PROGRAMFILE=bin/$(notdir $(shell pwd)).$(shell arch)
 
-all: $(PROGRAMFILE)
+all: $(PROGRAMFILE) tags
 
 obj/%.o: src/%.c $(HEADERS)
 	$(COMPILER) -c -o $@ $< $(COMPILEFLAGS) -fPIC
@@ -22,3 +22,8 @@ $(PROGRAMFILE): $(PROGRAMOBJECTS)
 clean:
 	rm obj/*
 	rm bin/*
+
+tags: src/TAGS
+
+src/TAGS: $(wildcard src/*.c) $(HEADERS)
+	etags src/*.c src/*.h -o src/TAGS
