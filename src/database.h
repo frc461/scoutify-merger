@@ -11,7 +11,7 @@
 
 team_t **_db_; // global database (array of teams)
 
-extern int db_end; // pointer to end of db
+extern int _db_end_; // pointer to end of db
 
 void init_db();
 
