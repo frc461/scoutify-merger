@@ -15,11 +15,11 @@ int compare(const void *a, const void *b) {
 }
 
 int sort_db() {
-	for(int i = 0; get_nth_db_element(i); i++) {
-		set_sort_value(get_nth_db_element(i));
+	for(int i = 0; database_get_nth_element(i); i++) {
+		set_sort_value(database_get_nth_element(i));
 	}
-	qsort(unrestricted_db(),
-	      num_db_elements(),
+	qsort(_unrestricted_db_(),
+	      _database_num_elements_(),
 	      sizeof(team_t *),
 	      compare);
 }

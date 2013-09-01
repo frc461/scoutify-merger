@@ -10,24 +10,24 @@
 
 int _db_end_ = 0;
 
-void init_db() {
+void database_init() {
  	_db_ = malloc(sizeof(team_t *)*256);
 	_db_end_ = 0;
 }
 
-int add_to_db(team_t *team) {
+int database_add_team(team_t *team) {
 	if(_db_end_ >= 256) return -1;
 	_db_[_db_end_] = team;
 	_db_end_++;
 	return 0;
 }
 
-team_t *get_nth_db_element(int n) {
+team_t *database_get_nth_element(int n) {
 	if(n >= _db_end_) return NULL;
 	else return _db_[n];
 }
 
-int set_nth_db_element(int n, team_t *team) {
+int database_set_nth_element(int n, team_t *team) {
 	if(n >= _db_end_) return -1;
 	_db_[n] = team;
 	return 0;
@@ -37,7 +37,7 @@ int set_nth_db_element(int n, team_t *team) {
  * Delete an element out of the db by replacing it with the element at the end
  * and decrementing the end pointer.
  */
-int delete_nth_db_element(int n) {
+int database_delete_nth_element(int n) {
 	if(n >= _db_end_) return -1;
 	_db_[n]= _db_[_db_end_ - 1];
 	_db_end_--;
@@ -46,10 +46,10 @@ int delete_nth_db_element(int n) {
 /*
  * Avoid the following two functions if at all possible.
  */
-int num_db_elements() {
+int _database_num_elements_() {
 	return _db_end_;
 }
 
-team_t **unrestricted_db() {
+team_t **_unrestricted_db_() {
 	return _db_;
 }

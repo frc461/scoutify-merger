@@ -89,7 +89,7 @@ int load_dot_scoutify(char *dsf_path)
 			strcat(fullpath, file.name);
 			
 			if(team = load_team_dir(fullpath, file.name)) { // make sure there were matches
-				add_to_db(team); // add to db
+				database_add_team(team); // add to db
 				i++;
 			}
 		}

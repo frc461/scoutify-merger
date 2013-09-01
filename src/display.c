@@ -7,10 +7,10 @@
 
 void database_display()
 {
-	team_t **db = unrestricted_db();
+	team_t **db = _unrestricted_db_();
 	
-	for(int i = 0; i < num_db_elements(); i += 1) {
-		team_t *curteam = db[i];
+	for(int i = 0; i < _database_num_elements_(); i += 1) {
+		team_t *curteam = database_get_nth_element(i);
 		printf("Team %8lu [%s]\n", curteam->number, curteam->name);
 	}
 }

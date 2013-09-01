@@ -13,18 +13,18 @@ team_t **_db_; // global database (array of teams)
 
 extern int _db_end_; // pointer to end of db
 
-void init_db();
+void database_init();
 
-int add_to_db(team_t *team);
+int database_add_team(team_t *team);
 
-team_t *get_nth_db_element(int n);
+team_t *database_get_nth_element(int n);
 
-int set_nth_db_element(int n, team_t *team);
+int database_set_nth_element(int n, team_t *team);
 
-int delete_nth_db_element(int n);
+int database_delete_nth_element(int n);
 
-int num_db_elements();
+int _database_num_elements_();
 
-team_t **unrestricted_db();
+team_t **_unrestricted_db_();
 
 #endif

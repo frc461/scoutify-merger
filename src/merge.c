@@ -7,32 +7,32 @@
 
 int merge_teams()
 {
-	for(int i = 0; get_nth_db_element(i); i++) {
+	for(int i = 0; database_get_nth_element(i); i++) {
 		match_t **matches = malloc(sizeof(match_t *)*128);
-		int num_matches = get_nth_db_element(i)->num_matches;
-		matches = get_nth_db_element(i)->matches;
+		int num_matches = database_get_nth_element(i)->num_matches;
+		matches = database_get_nth_element(i)->matches;
 		
-		for(int j = 1; get_nth_db_element(i+j);) {
+		for(int j = 1; database_get_nth_element(i+j);) {
 			
-			if(get_nth_db_element(i)->number ==
-			   get_nth_db_element(i+j)->number) {
+			if(database_get_nth_element(i)->number ==
+			   database_get_nth_element(i+j)->number) {
 				
 				memcpy(&matches[num_matches],
-				       get_nth_db_element(i+j)->matches,
-				       (sizeof(match_t)*get_nth_db_element(i+j)->num_matches));
+				       database_get_nth_element(i+j)->matches,
+				       (sizeof(match_t)*database_get_nth_element(i+j)->num_matches));
 				
-				num_matches += get_nth_db_element(i+j)->num_matches;
+				num_matches += database_get_nth_element(i+j)->num_matches;
 				
-				delete_nth_db_element(i+j);
+				database_delete_nth_element(i+j);
 			} else {
 				j++; // only increment if we didn't replace
-				     // (if we used delete_nth_db_element, the element was replaced
+				     // (if we used database_delete_nth_element, the element was replaced
 				     // and we need to test the element that now occupies the old one's spot)
 			}
 		}
-		team_set_from_data(get_nth_db_element(i),
-		                   get_nth_db_element(i)->number,
-		                   get_nth_db_element(i)->name,
+		team_set_from_data(database_get_nth_element(i),
+		                   database_get_nth_element(i)->number,
+		                   database_get_nth_element(i)->name,
 		                   matches,
 		                   num_matches);
 	}
