@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 {
 	argument_build_list_from_arguments(argc, argv);
 	argument_debug_list();
-
+	
 	init_db();
 
 	if(argc < 2) return 0;

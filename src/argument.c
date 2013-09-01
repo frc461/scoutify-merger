@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 
 #include <src/argument.h>
 
@@ -34,7 +36,7 @@ void argument_insert_after_argument(argument_t *argument, argument_t *to_insert)
 
 		argument_t *previous_next = argument->next;
 		argument->next = to_insert;
-		argument->next->next = previous_next;	
+		argument->next->next = previous_next;
 	}
 	
 	argument->next = to_insert;
@@ -81,3 +83,48 @@ void argument_debug_list()
 	printf("%8slast dtctd == { %d [@0x%x] \"%s\" }\n", "", last->index, last, last->value);
 }
 
+int argument_get_number_of_elements_in_list()
+{ int ret = 0;
+	argument_t *i = _root_argument_;
+
+	while(i != NULL) {
+		ret += 1;
+		i = i->next;
+	}
+
+	return ret;
+}
+
+argument_t *argument_list_get_nth_element(int n)
+{ argument_t *argument = _root_argument_;
+	int c = 0;
+	while(c < n) {
+		argument = argument->next;
+		c += 1;
+	}
+
+	return argument;
+}
+
+argument_t **argument_get_array_of_argument_pointers_from_system_list()
+{ argument_t **ret = malloc(sizeof(argument_t *) * argument_get_number_of_elements_in_list());
+	unsigned int counter = 0;
+	argument_t *i = _root_argument_;
+	
+	while(i != NULL) {
+		ret[counter] = i;
+		counter += 1;
+		i = i->next;
+	}
+	
+	return ret;
+}
+
+char **argument_get_paths_from_list()
+{ char **ret = malloc(sizeof(char *) * argument_get_number_of_elements_in_list() - 1);
+	for(int i = 1; i < argument_get_number_of_elements_in_list(); i += 1) {
+		ret[i - 1] = argument_list_get_nth_element(i)->value;
+	}
+	
+	return ret;
+}
