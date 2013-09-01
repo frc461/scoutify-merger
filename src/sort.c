@@ -14,7 +14,7 @@ int compare(const void *a, const void *b) {
 	return find_value(a) - find_value(b);
 }
 
-int sort_db() {
+int database_sort() {
 	for(int i = 0; database_get_nth_element(i); i++) {
 		set_sort_value(database_get_nth_element(i));
 	}

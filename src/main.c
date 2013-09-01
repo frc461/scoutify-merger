@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
 		merge_matches(database_get_nth_element(i));
 	}
 
-	sort_db();
+	database_sort();
 	
 	for(int i = 0; database_get_nth_element(i); i++) {
 		printf("TEAM: %u\n", database_get_nth_element(i)->number);
