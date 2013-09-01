@@ -109,46 +109,7 @@ argument_t **argument_get_array_of_argument_pointers_from_system_list()
 	return ret;
 }
 
-argument_execution_choices_t *argument_execution_choices_new()
-{ argument_execution_choices_t *ret = malloc(sizeof(argument_execution_choices_t));
-	return ret;
-}
-
-argument_execution_choices_t *argument_execution_choices_from_system_list()
-{ argument_execution_choices_t *ret = argument_execution_choices_new();
-
-	printf("%d arguments in system list, building execution choices structure from that\n", argument_get_number_of_elements_in_list());
-
-	int argumentcount = argument_get_number_of_elements_in_list();
-	argument_t **arguments = argument_get_array_of_argument_pointers_from_system_list();
-
-	ret->in_file_definition_index = 0;
-	ret->out_file_definition_index = 0;
-
-	for(int i = 0; i < argumentcount; i += 1) {
-		printf("[%d @ 0x%x] is \"%s\"\n", i, arguments[i], arguments[i]->value);
-	}
-
-	for(int i = 0; i < argumentcount; i += 1) {
-		for(int j = 0; j < strlen(arguments[i]->value); j += 1) {
-			arguments[i]->value[j] = tolower(arguments[i]->value[j]);
-		}
-	}
-	
-	for(int i = 0; i < argumentcount; i += 1) {
-		if(arguments[i]->value[1] == 'f' &&
-		   arguments[i]->value[2] == '=') {
-			if(arguments[i]->value[0] == 'i') {
-				ret->in_file = arguments[i]->value;
-				ret->in_file_definition_index = i;
-			} else if(arguments[i]->value[0] == 'o') {
-				ret->out_file = arguments[i]->value;
-				ret->out_file_definition_index = i;
-			} else {
-				printf("err: malformed argument: %s (skipping)!\n", arguments[i]->value);
-			}
-		}
-	}
-	
+char **argument_get_paths_from_list()
+{ char **ret = malloc(sizeof(char *) * argument_get_number_of_elements_in_list());
 	return ret;
 }
