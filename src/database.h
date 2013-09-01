@@ -9,7 +9,7 @@
  * ALWAYS USE THESE ABSTRACTION FUNCTIONS.
  */
 
-team_t **db; // global database (array of teams)
+team_t **_db_; // global database (array of teams)
 
 extern int db_end; // pointer to end of db
 

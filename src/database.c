@@ -11,25 +11,25 @@
 int db_end = 0;
 
 void init_db() {
- 	db = malloc(sizeof(team_t *)*256);
+ 	_db_ = malloc(sizeof(team_t *)*256);
 	db_end = 0;
 }
 
 int add_to_db(team_t *team) {
 	if(db_end >= 256) return -1;
-	db[db_end] = team;
+	_db_[db_end] = team;
 	db_end++;
 	return 0;
 }
 
 team_t *get_nth_db_element(int n) {
 	if(n >= db_end) return NULL;
-	else return db[n];
+	else return _db_[n];
 }
 
 int set_nth_db_element(int n, team_t *team) {
 	if(n >= db_end) return -1;
-	db[n] = team;
+	_db_[n] = team;
 	return 0;
 }
 
@@ -39,7 +39,7 @@ int set_nth_db_element(int n, team_t *team) {
  */
 int delete_nth_db_element(int n) {
 	if(n >= db_end) return -1;
-	db[n]= db[db_end - 1];
+	_db_[n]= _db_[db_end - 1];
 	db_end--;
 }
 
@@ -51,5 +51,5 @@ int num_db_elements() {
 }
 
 team_t **unrestricted_db() {
-	return db;
+	return _db_;
 }
