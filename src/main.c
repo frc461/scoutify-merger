@@ -2,6 +2,7 @@
 
 #include <src/argument.h>
 #include <src/database.h>
+#include <src/display.h>
 #include <src/file.h>
 
 #include <src/main.h>
@@ -12,8 +13,6 @@ int main(int argc, char *argv[])
 	argument_debug_list();
 	
 	init_db();
-
-	if(argc < 2) return 0;
 
 	load_dot_scoutify(argv[1]);
 	if(argc > 2) load_dot_scoutify(argv[2]);
@@ -36,5 +35,7 @@ int main(int argc, char *argv[])
 		}
 	}
 
+	database_display();
+	
 	return 0;
 }
