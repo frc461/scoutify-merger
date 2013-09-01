@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
 	argument_debug_list();
 
 	init_db();
+
 	if(argc < 2) return 0;
 
 	load_dot_scoutify(argv[1]);
@@ -19,6 +20,10 @@ int main(int argc, char *argv[])
 
 	merge_teams();
 
+	for(int i = 0; get_nth_db_element(i); i++) {
+		merge_matches(get_nth_db_element(i));
+	}
+	
 	for(int i = 0; get_nth_db_element(i); i++) {
 		printf("TEAM: %u\n", get_nth_db_element(i)->number);
 		printf("num matches: %u\n", get_nth_db_element(i)->num_matches);

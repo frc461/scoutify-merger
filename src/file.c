@@ -12,7 +12,9 @@ match_t *load_match_file(char *path, char *team)
 	}
 	
 	if(team && strcmp(team, json_string_value(json_object_get(json, "team")))) {
-		fprintf(stderr, "ERROR: Teams do not match. (\"%s\" and \"%s\")\n", team, json_string_value(json_object_get(json, "team")));
+		fprintf(stderr, "ERROR: Teams do not match. (\"%s\" and \"%s\")\n",
+		        team,
+		        json_string_value(json_object_get(json, "team")));
 		return NULL;
 	}
 
@@ -33,7 +35,6 @@ team_t *load_team_dir(char *dir_path, char *team)
 
 	while(dir.has_next) {
 		tinydir_file file;
-		char *fullpath = malloc((strlen(dir_path)+strlen(team)+1)*sizeof(char));
 		match_t *match;
 		tinydir_readfile(&dir, &file);
 
@@ -42,10 +43,14 @@ team_t *load_team_dir(char *dir_path, char *team)
 			char *dot = strrchr(file.name, '.');
 			if(dot && !strcmp(dot, ".json")) { // ends w/ .json
 
+				char *fullpath = malloc((strlen(dir_path) +
+				                         strlen(team) +
+				                         strlen(file.name))
+				                        * sizeof(char));
 				strcpy(fullpath, dir_path);
 				strcat(fullpath, "/");
 				strcat(fullpath, file.name);
-				
+
 				if(match = load_match_file(fullpath, team)) { // make sure there were no errors
 					matches[i] = match; // add to matches
 					i++;
@@ -69,13 +74,16 @@ int load_dot_scoutify(char *dsf_path)
 
 	while(dir.has_next) {
 		tinydir_file file;
-		char *fullpath = malloc((strlen(dsf_path)+8)*sizeof(char));
 		team_t *team;
 		tinydir_readfile(&dir, &file);
 
 		if(file.is_dir && // a directory, assuming to be a team dir
 		   (strcmp(".", file.name) && strcmp("..", file.name))) { // is not . or ..
-			
+
+			char *fullpath = malloc((strlen(dsf_path) +
+			                         strlen(file.name))
+			                        * sizeof(char));
+
 			strcpy(fullpath, dsf_path);
 			strcat(fullpath, "/");
 			strcat(fullpath, file.name);
