@@ -22,6 +22,7 @@ void argument_insert_after_argument(argument_t *argument, argument_t *to_insert)
 void argument_build_list_from_arguments(int argc, char *argv[]);
 
 argument_t *argument_get_last_in_linked_list();
+argument_t *argument_list_get_nth_element(int n);
 argument_t **argument_get_array_of_argument_pointers_from_system_list();
 int argument_get_number_of_elements_in_list();
 void argument_debug_list();
