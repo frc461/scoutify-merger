@@ -7,12 +7,12 @@
 
 int merge_teams()
 {
-	for(int i = 0; i < db_end; i++) {
+	for(int i = 0; get_nth_db_element(i); i++) {
 		match_t **matches = malloc(sizeof(match_t *)*128);
 		int num_matches = get_nth_db_element(i)->num_matches;
 		matches = get_nth_db_element(i)->matches;
 		
-		for(int j = 1; i + j < db_end;) {
+		for(int j = 1; get_nth_db_element(i+j);) {
 			
 			if(get_nth_db_element(i)->number ==
 			   get_nth_db_element(i+j)->number) {

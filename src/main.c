@@ -23,6 +23,8 @@ int main(int argc, char *argv[])
 	for(int i = 0; get_nth_db_element(i); i++) {
 		merge_matches(get_nth_db_element(i));
 	}
+
+	sort_db();
 	
 	for(int i = 0; get_nth_db_element(i); i++) {
 		printf("TEAM: %u\n", get_nth_db_element(i)->number);

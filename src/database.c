@@ -42,3 +42,14 @@ int delete_nth_db_element(int n) {
 	db[n]= db[db_end - 1];
 	db_end--;
 }
+
+/*
+ * Avoid the following two functions if at all possible.
+ */
+int num_db_elements() {
+	return db_end;
+}
+
+team_t **unrestricted_db() {
+	return db;
+}

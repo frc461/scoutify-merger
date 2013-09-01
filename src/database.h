@@ -23,4 +23,8 @@ int set_nth_db_element(int n, team_t *team);
 
 int delete_nth_db_element(int n);
 
+int num_db_elements();
+
+team_t **unrestricted_db();
+
 #endif

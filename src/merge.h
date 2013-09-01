@@ -1,7 +1,7 @@
 #ifndef MERGE_H
 #define MERGE_H
 
-#include <src/database.h>
+#include <src/sort.h>
 
 int merge_teams();
 
