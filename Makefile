@@ -14,10 +14,12 @@ PROGRAMFILE=bin/$(notdir $(shell pwd)).$(shell arch)
 all: $(PROGRAMFILE) tags
 
 obj/%.o: src/%.c $(HEADERS)
-	$(COMPILER) -c -o $@ $< $(COMPILEFLAGS) -fPIC
+	@printf "\033[32mCOMPILE\033[0m %8s\n" "$<"
+	@$(COMPILER) -c -o $@ $< $(COMPILEFLAGS) -fPIC
 
 $(PROGRAMFILE): $(PROGRAMOBJECTS)
-	$(COMPILER) -o $(PROGRAMFILE) $(PROGRAMOBJECTS) $(LINKFLAGS)
+	@printf "\033[34mLINK TO\033[0m %8s\n" "$@"
+	@$(COMPILER) -o $(PROGRAMFILE) $(PROGRAMOBJECTS) $(LINKFLAGS)
 
 clean:
 	rm obj/*
