@@ -1,17 +1,24 @@
-#include <src/sort.h>
 #include <stdlib.h>
+#include <stdio.h>
 
-int find_value(const team_t *team) {
+#include <src/sort.h>
+
+int find_value(team_t *team) {
 	return team->number;
 }
 
 int set_sort_value(team_t *team) {
-	team->number = find_value(team);
+	team->value = find_value(team);
 	return 0;
 }
 
+int value(const team_t *team) {
+	printf("finding value of team %u to be %u\n", team->number, team->value);
+	return team->value;
+}
+
 int compare(const void *a, const void *b) {
-	return find_value(b) - find_value(a);
+	return value(*(const team_t **)b) - value(*(const team_t **)a);
 }
 
 int database_sort() {
@@ -22,5 +29,6 @@ int database_sort() {
 	      _database_num_elements_(),
 	      sizeof(team_t *),
 	      compare);
+	return 0;
 }
 

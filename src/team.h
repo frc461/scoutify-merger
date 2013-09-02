@@ -6,6 +6,7 @@
 typedef struct team {
 	unsigned int number;
 	char name[128];
+	int value;
 
 	match_t **matches;
 	unsigned int num_matches;
