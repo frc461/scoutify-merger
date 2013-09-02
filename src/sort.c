@@ -14,14 +14,9 @@ int set_sort_value(team_t *team)
 	return 0;
 }
 
-int value(const team_t *team)
-{
-	return team->value;
-}
-
 int compare(const void *a, const void *b)
 {
-	return value(*(const team_t **)b) - value(*(const team_t **)a);
+	return (*(const team_t **)b)->value - (*(const team_t **)a)->value;
 }
 
 int database_sort()
