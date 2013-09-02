@@ -10,14 +10,17 @@
 int main(int argc, char *argv[])
 {
 	argument_build_list_from_arguments(argc, argv);
-	argument_debug_list();
-	
-	database_init();
 
-	if(argc < 2) return 0;
+	database_init();
 	
-	load_dot_scoutify(argv[1]);
-	if(argc > 2) load_dot_scoutify(argv[2]);
+	char **argument_values = argument_get_values_from_list();
+	int arguments = argument_get_number_of_elements_in_list() - 1;
+	
+	if(arguments == 0) return 0;
+	
+	for(int i = 0; i < arguments; i += 1) {
+		load_dot_scoutify(argument_values[i]);
+	}
 
 	merge_teams();
 

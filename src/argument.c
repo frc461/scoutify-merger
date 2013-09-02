@@ -120,7 +120,7 @@ argument_t **argument_get_array_of_argument_pointers_from_system_list()
 	return ret;
 }
 
-char **argument_get_paths_from_list()
+char **argument_get_values_from_list()
 { char **ret = malloc(sizeof(char *) * argument_get_number_of_elements_in_list() - 1);
 	for(int i = 1; i < argument_get_number_of_elements_in_list(); i += 1) {
 		ret[i - 1] = argument_list_get_nth_element(i)->value;

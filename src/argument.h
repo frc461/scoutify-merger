@@ -27,6 +27,6 @@ argument_t **argument_get_array_of_argument_pointers_from_system_list();
 int argument_get_number_of_elements_in_list();
 void argument_debug_list();
 
-char **argument_get_paths_from_list();
+char **argument_get_values_from_list();
 
 #endif
