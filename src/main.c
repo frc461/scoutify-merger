@@ -9,12 +9,12 @@
 
 int main(int argc, char *argv[])
 {
-	argument_build_list_from_arguments(argc, argv);
+	argument_build_system_list_from_arguments(argc, argv);
 
 	database_init();
 
-	char **argument_values = argument_get_values_from_list();
-	int arguments = argument_get_number_of_elements_in_list() - 1;
+	char **argument_values = argument_get_values_from_system_list();
+	int arguments = argument_get_number_of_elements_in_system_list() - 1;
 
 	if(arguments == 0) return 0;
 
