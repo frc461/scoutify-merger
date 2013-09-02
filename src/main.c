@@ -39,6 +39,7 @@ int main(int argc, char *argv[])
 	*/
 
 	database_display();
+	database_display_table_mode();
 
 	return 0;
 }
