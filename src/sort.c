@@ -11,7 +11,7 @@ int set_sort_value(team_t *team) {
 }
 
 int compare(const void *a, const void *b) {
-	return find_value(a) - find_value(b);
+	return find_value(b) - find_value(a);
 }
 
 int database_sort() {
