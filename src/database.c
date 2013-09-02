@@ -22,6 +22,10 @@ int database_add_team(team_t *team) {
 	return 0;
 }
 
+/*
+ * The following are okay for use.
+ */
+
 team_t *database_get_nth_element(int n) {
 	if(n >= _db_end_) return NULL;
 	else return _db_[n];
@@ -46,6 +50,7 @@ int database_delete_nth_element(int n) {
 /*
  * Avoid the following two functions if at all possible.
  */
+
 int _database_num_elements_() {
 	return _db_end_;
 }

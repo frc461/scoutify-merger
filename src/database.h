@@ -13,6 +13,10 @@ team_t **_db_; // global database (array of teams)
 
 extern int _db_end_; // pointer to end of db
 
+/*
+ * The following are okay for use.
+ */
+
 void database_init();
 
 int database_add_team(team_t *team);
@@ -22,6 +26,10 @@ team_t *database_get_nth_element(int n);
 int database_set_nth_element(int n, team_t *team);
 
 int database_delete_nth_element(int n);
+
+/*
+ * Avoid the following two functions if at all possible.
+ */
 
 int _database_num_elements_();
 
