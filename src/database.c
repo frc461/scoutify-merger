@@ -10,6 +10,10 @@
 
 int _db_end_ = 0;
 
+/*
+ * The following are okay for use.
+ */
+
 void database_init() {
  	_db_ = malloc(sizeof(team_t *)*256);
 	_db_end_ = 0;
@@ -21,10 +25,6 @@ int database_add_team(team_t *team) {
 	_db_end_++;
 	return 0;
 }
-
-/*
- * The following are okay for use.
- */
 
 team_t *database_get_nth_element(int n) {
 	if(n >= _db_end_) return NULL;
