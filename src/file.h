@@ -4,10 +4,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <jansson.h>
+
 #include <lib/tinydir.h>
 
 #include <src/team.h>
-#include <src/json.h>
 #include <src/merge.h>
 
 match_t *load_match_file(char *path, char *team);

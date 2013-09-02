@@ -68,7 +68,8 @@ team_t *load_team_dir(char *dir_path, char *team)
 }
 
 int load_dot_scoutify(char *dsf_path)
-{   int i = 0;
+{
+	int i = 0;
 	tinydir_dir dir;
 	tinydir_open(&dir, dsf_path);
 

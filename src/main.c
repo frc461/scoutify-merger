@@ -12,24 +12,21 @@ int main(int argc, char *argv[])
 	argument_build_list_from_arguments(argc, argv);
 
 	database_init();
-	
+
 	char **argument_values = argument_get_values_from_list();
 	int arguments = argument_get_number_of_elements_in_list() - 1;
-	
+
 	if(arguments == 0) return 0;
-	
+
 	for(int i = 0; i < arguments; i += 1) {
 		load_dot_scoutify(argument_values[i]);
 	}
 
-	merge_teams();
-
-	for(int i = 0; database_get_nth_element(i); i++) {
-		merge_matches(database_get_nth_element(i));
-	}
+	merge_all();
 
 	database_sort();
-	
+
+	/*
 	for(int i = 0; database_get_nth_element(i); i++) {
 		printf("TEAM: %u\n", database_get_nth_element(i)->number);
 		printf("num matches: %u\n", database_get_nth_element(i)->num_matches);
@@ -39,8 +36,9 @@ int main(int argc, char *argv[])
 			printf("Notes: %s\n", database_get_nth_element(i)->matches[j]->notes);
 		}
 	}
+	*/
 
 	database_display();
-	
+
 	return 0;
 }

@@ -75,3 +75,14 @@ int merge_matches(team_t *team)
 	}
 	return 0;
 }
+
+int merge_all()
+{
+	merge_teams();
+
+	for(int i = 0; database_get_nth_element(i); i++) {
+		merge_matches(database_get_nth_element(i));
+	}
+
+	return 0;
+}
