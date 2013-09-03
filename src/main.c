@@ -60,5 +60,7 @@ int main(int argc, char *argv[])
 	database_display();
 	database_display_table_mode();
 
+	dump_database_to_file("database.dbdmp");
+	
 	return 0;
 }

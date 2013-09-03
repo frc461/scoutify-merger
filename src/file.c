@@ -122,3 +122,25 @@ int load_dot_scoutify(char *dsf_path)
 	if(i == 0) return 1;
 	else return 0;
 }
+
+int dump_database_to_file(char *opath)
+{
+	FILE *file = fopen(opath, "wb");
+
+	if(file == NULL) {
+		fprintf(stderr, "OH NOES, DUMPFILE [%s] IS NULL!\n", opath);
+		return 1;
+	}
+	
+	team_t **db = _unrestricted_db_();
+	int number_of_database_elements = _database_num_elements_();
+
+	fprintf(file, "\"dbindex\", \"number\", \"value\", \"name\"\n");
+	
+	for(int i = 0; i < number_of_database_elements; i += 1) {
+		fprintf(file, "\"%d\", \"%u\", \"%d\", \"%s\"\n", i, db[i]->number, db[i]->value, db[i]->name);
+	}
+	
+	fclose(file);
+	return 0;
+}

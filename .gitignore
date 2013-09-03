@@ -20,3 +20,6 @@
 
 # Tag table
 src/TAGS
+
+# Database dumps
+*.dbdmp
