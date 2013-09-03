@@ -123,22 +123,23 @@ int load_dot_scoutify(char *dsf_path)
 	else return 0;
 }
 
-int dump_database_to_file(char *opath)
+int dump_database_to_csv_file(char *opath)
 {
+	/* open the path given for writing */
 	FILE *file = fopen(opath, "wb");
 
-	if(file == NULL) {
+	if(file == NULL) { /* that is, if fopen didn't set it to an actual memory address */
 		fprintf(stderr, "OH NOES, DUMPFILE [%s] IS NULL!\n", opath);
 		return 1;
 	}
 	
-	team_t **db = _unrestricted_db_();
-	int number_of_database_elements = _database_num_elements_();
+	team_t *curteam;
 
+	/* print the column headers to the CSV file */
 	fprintf(file, "\"dbindex\", \"number\", \"value\", \"name\"\n");
 	
-	for(int i = 0; i < number_of_database_elements; i += 1) {
-		fprintf(file, "\"%d\", \"%u\", \"%d\", \"%s\"\n", i, db[i]->number, db[i]->value, db[i]->name);
+	for(int i = 0; curteam = database_get_nth_element(i); i += 1) {
+		fprintf(file, "\"%d\", \"%u\", \"%d\", \"%s\"\n", i, curteam->number, curteam->value, curteam->name);
 	}
 	
 	fclose(file);

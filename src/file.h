@@ -36,6 +36,6 @@ team_t *load_team_dir(char *dir_path, char* team);
 
 int load_dot_scoutify(char *dsf_path);
 
-int dump_database_to_file(char *opath);
+int dump_database_to_csv_file(char *opath);
 
 #endif
