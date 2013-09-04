@@ -17,6 +17,7 @@
     along with scoutify-hub.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <src/json.h>
 #include <src/file.h>
 
 match_t *load_match_file(char *path, char *team)
@@ -121,4 +122,27 @@ int load_dot_scoutify(char *dsf_path)
 
 	if(i == 0) return 1;
 	else return 0;
+}
+
+int write_db_to_file(char *path)
+{
+	json_dump_file(make_json_from_db(), path, 0);
+	return 0;
+}
+
+int populate_db_from_file(char *path)
+{
+	json_t *json;
+	json_error_t error;
+
+	json = json_load_file(path, 0, &error);
+	if(!json) {
+		fprintf(stderr, "ERROR: %s\n", error.text);
+		return -1;
+	}
+
+	populate_db_from_json(json);
+
+	return 0;
+
 }

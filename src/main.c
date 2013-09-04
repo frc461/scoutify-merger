@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
 	char **argument_values = argument_get_values_from_system_list();
 	int arguments = argument_get_number_of_elements_in_system_list() - 1;
 
-	if(arguments == 0) return 0;
+	populate_db_from_file("test.json");
 
 	for(int i = 0; i < arguments; i += 1) {
 		load_dot_scoutify(argument_values[i]);
@@ -60,5 +60,7 @@ int main(int argc, char *argv[])
 	database_display();
 	database_display_table_mode();
 
+	write_db_to_file("test.json");
+	
 	return 0;
 }

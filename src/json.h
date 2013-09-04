@@ -17,27 +17,13 @@
     along with scoutify-hub.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef FILE_H
-#define FILE_H
-
-#include <stdio.h>
-#include <stdlib.h>
+#ifndef JSON_H
+#define JSON_H
 
 #include <jansson.h>
 
-#include <lib/tinydir.h>
+json_t *make_json_from_db();
 
-#include <src/team.h>
-#include <src/merge.h>
-
-match_t *load_match_file(char *path, char *team);
-
-team_t *load_team_dir(char *dir_path, char* team);
-
-int load_dot_scoutify(char *dsf_path);
-
-int write_db_to_file(char *path);
-
-int populate_db_from_file(char *path);
+int populate_db_from_json(json_t *json);
 
 #endif
