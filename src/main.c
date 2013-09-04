@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
 	char **argument_values = argument_get_values_from_system_list();
 	int arguments = argument_get_number_of_elements_in_system_list() - 1;
 
-	populate_db_from_file("test.json");
+	populate_db_from_file("raw/test.json");
 
 	for(int i = 0; i < arguments; i += 1) {
 		load_dot_scoutify(argument_values[i]);
@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
 
 	database_sort();
 
-	/*
+	/* Do we still need this?
 	for(int i = 0; database_get_nth_element(i); i++) {
 		printf("TEAM: %u\n", database_get_nth_element(i)->number);
 		printf("num matches: %u\n", database_get_nth_element(i)->num_matches);
@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
 	database_display();
 	database_display_table_mode();
 
-	write_db_to_file("test.json");
+	write_db_to_file("raw/test.json");
 
 	dump_database_to_csv_file("database.csv");
 	
