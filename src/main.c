@@ -61,6 +61,8 @@ int main(int argc, char *argv[])
 	database_display_table_mode();
 
 	write_db_to_file("test.json");
+
+	dump_database_to_csv_file("database.csv");
 	
 	return 0;
 }

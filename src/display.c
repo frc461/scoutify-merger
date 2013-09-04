@@ -34,11 +34,11 @@ void database_display()
 
 void database_display_table_mode()
 {
-	printf("%6s | %16s | %12s\n", "", "TEAM NUMBER", "SORT VALUE");
+	printf("%-6s | %-16s | %12s | %-32s\n", "", "TEAM NUMBER", "SORT VALUE", "TEAM NAME");
 	
 	team_t *curteam;
 	for(int i = 0; curteam = database_get_nth_element(i); i += 1) {
 		
-		printf("%6d | %16u | %12d\n", i, curteam->number, curteam->value);
+		printf("%-6d | %-16u | %12d | %-32s\n", i, curteam->number, curteam->value, curteam->name);
 	}
 }

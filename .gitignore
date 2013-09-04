@@ -23,3 +23,5 @@ src/TAGS
 
 # random other files
 test.json
+*.dbdmp
+*.csv

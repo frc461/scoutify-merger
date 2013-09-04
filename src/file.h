@@ -40,4 +40,6 @@ int write_db_to_file(char *path);
 
 int populate_db_from_file(char *path);
 
+int dump_database_to_csv_file(char *opath);
+
 #endif
