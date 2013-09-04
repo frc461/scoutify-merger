@@ -45,18 +45,6 @@ int main(int argc, char *argv[])
 
 	database_sort();
 
-	/* Do we still need this?
-	for(int i = 0; database_get_nth_element(i); i++) {
-		printf("TEAM: %u\n", database_get_nth_element(i)->number);
-		printf("num matches: %u\n", database_get_nth_element(i)->num_matches);
-		for(int j = 0; j < database_get_nth_element(i)->num_matches; j++) {
-			printf("Position: %s\n", database_get_nth_element(i)->matches[j]->position);
-			printf("Round: %s\n", database_get_nth_element(i)->matches[j]->round);
-			printf("Notes: %s\n", database_get_nth_element(i)->matches[j]->notes);
-		}
-	}
-	*/
-
 	database_display();
 	database_display_table_mode();
 
