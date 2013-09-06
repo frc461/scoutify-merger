@@ -49,15 +49,36 @@ argument_t *_argument_new_from_data_after_argument_(int argc, char *argv, argume
 
 void _argument_insert_after_argument_(argument_t *argument, argument_t *to_insert)
 {
+	/*
+	 * If we've already got a 'next' member in 'argument', and it's not NULL, then
+	 * that means there's probably some other argument coming after the given argument.
+	 */
 	if(argument->next != NULL) {
+		/*
+		 * Warn the user (hardly ever happens because the only time this function should
+		 * be called is by the system list generator and it does things nicely and in sequence)
+		 */
 		printf("insertion detected previous next @0x%x w/ parent @0x%x\n", argument->next, argument);
 		printf("%4s(we'll make a copy and then insert that as the next of the insertion)\n", "");
 
+		/*
+		 * Make a copy of the previous 'next' member
+		 */
 		argument_t *previous_next = argument->next;
+		/*
+		 * Then insert the given argument pointer.
+		 */
 		argument->next = to_insert;
+		/*
+		 * Then set the next of the given argument pointer to be the copy.
+		 */
 		argument->next->next = previous_next;
+		return;
 	}
-	
+
+	/*
+	 * Otherwise, just set the next to be the next.
+	 */
 	argument->next = to_insert;
 }
 
@@ -107,13 +128,23 @@ void argument_debug_system_list()
 
 int argument_get_number_of_elements_in_system_list()
 { int ret = 0;
+	/*
+	 * Get an iterator, preset to the root argument
+	 */
 	argument_t *i = _root_argument_;
 
+	/*
+	 * Move the iterator to whatever the iterator's 'next' member is,
+	 * until the iterator becomes null. Increment a counter.
+	 */
 	while(i != NULL) {
 		ret += 1;
 		i = i->next;
 	}
 
+	/*
+	 * Return the counter.
+	 */
 	return ret;
 }
 
