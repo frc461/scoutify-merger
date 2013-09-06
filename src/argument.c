@@ -31,23 +31,23 @@ argument_t *_argument_new_()
 	return ret;
 }
 
-argument_t *argument_new_from_data(int argc, char *argv)
+argument_t *_argument_new_from_data_(int argc, char *argv)
 { argument_t *ret = _argument_new_();
 
-	argument_set_data(ret, argc, argv);
+	_argument_set_data_(ret, argc, argv);
 	
 	return ret;
 }
 
-argument_t *argument_new_from_data_after_argument(int argc, char *argv, argument_t *argument)
-{ argument_t *ret = argument_new_from_data(argc, argv);
+argument_t *_argument_new_from_data_after_argument_(int argc, char *argv, argument_t *argument)
+{ argument_t *ret = _argument_new_from_data_(argc, argv);
 
-	argument_insert_after_argument(argument, ret);
+	_argument_insert_after_argument_(argument, ret);
 	
 	return ret;
 }
 
-void argument_insert_after_argument(argument_t *argument, argument_t *to_insert)
+void _argument_insert_after_argument_(argument_t *argument, argument_t *to_insert)
 {
 	if(argument->next != NULL) {
 		printf("insertion detected previous next @0x%x w/ parent @0x%x\n", argument->next, argument);
@@ -61,13 +61,13 @@ void argument_insert_after_argument(argument_t *argument, argument_t *to_insert)
 	argument->next = to_insert;
 }
 
-void argument_set_data(argument_t *argument, int index, char *value)
+void _argument_set_data_(argument_t *argument, int index, char *value)
 {
 	argument->value = value;
 	argument->index = index;
 }
 
-argument_t *argument_get_last_argument_in_system_list()
+argument_t *_argument_get_last_argument_in_system_list_()
 {
 	argument_t *i = _root_argument_;
 
@@ -79,10 +79,13 @@ argument_t *argument_get_last_argument_in_system_list()
 
 void argument_build_system_list_from_arguments(int argc, char *argv[])
 {
-	_root_argument_ = argument_new_from_data(0, argv[0]);
+	/*
+	 * We always should have argv[0], at the least
+	 */
+	_root_argument_ = _argument_new_from_data_(0, argv[0]);
 	
 	for(int i = 1; i < argc; i += 1) {
-		argument_t *new = argument_new_from_data_after_argument(i, argv[i], argument_get_last_argument_in_system_list());
+		argument_t *new = _argument_new_from_data_after_argument_(i, argv[i], _argument_get_last_argument_in_system_list_());
 	}
 }
 
@@ -97,7 +100,7 @@ void argument_debug_system_list()
 		i = i->next;
 	}
 
-	argument_t *last = argument_get_last_argument_in_system_list();
+	argument_t *last = _argument_get_last_argument_in_system_list_();
 	
 	printf("%8slast dtctd == { %d [@0x%x] \"%s\" }\n", "", last->index, last, last->value);
 }
@@ -139,7 +142,7 @@ argument_t **argument_get_array_of_argument_pointers_from_system_list()
 	return ret;
 }
 
-char **argument_get_values_from_system_list()
+char **argument_get_argument_values_from_system_list()
 { char **ret = malloc(sizeof(char *) * argument_get_number_of_elements_in_system_list() - 1);
 	for(int i = 1; i < argument_get_number_of_elements_in_system_list(); i += 1) {
 		ret[i - 1] = argument_system_list_get_nth_element(i)->value;

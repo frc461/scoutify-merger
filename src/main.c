@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
 
 	database_init();
 
-	char **argument_values = argument_get_values_from_system_list();
+	char **argument_values = argument_get_argument_values_from_system_list();
 	int arguments = argument_get_number_of_elements_in_system_list() - 1;
 
 	populate_db_from_file("./raw/test.json");
