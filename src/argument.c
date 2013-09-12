@@ -196,9 +196,15 @@ argument_t *argument_system_list_get_nth_element(int n)
 
 argument_t **argument_get_array_of_argument_pointers_from_system_list()
 { argument_t **ret = malloc(sizeof(argument_t *) * argument_get_number_of_elements_in_system_list());
+	/*
+	 * A counter and an iterator.
+	 */
 	unsigned int counter = 0;
 	argument_t *i = _root_argument_;
-	
+
+	/*
+	 *  Iterate through the argument L.L. and generate the array of pointers.
+	 */
 	while(i != NULL) {
 		ret[counter] = i;
 		counter += 1;
@@ -210,6 +216,9 @@ argument_t **argument_get_array_of_argument_pointers_from_system_list()
 
 char **argument_get_argument_values_from_system_list()
 { char **ret = malloc(sizeof(char *) * argument_get_number_of_elements_in_system_list() - 1);
+	/*
+	 * Pretty simple iteration here.
+	 */
 	for(int i = 1; i < argument_get_number_of_elements_in_system_list(); i += 1) {
 		ret[i - 1] = argument_system_list_get_nth_element(i)->value;
 	}
