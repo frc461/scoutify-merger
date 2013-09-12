@@ -69,11 +69,11 @@ int merge_matches(team_t *team)
 				       i, team->matches[i]->round,
 				       i+j, team->matches[i+j]->round);
 
-				if(strcmp(team->matches[i]->position, team->matches[i+j]->position)) {
+				if(team->matches[i]->position != team->matches[i+j]->position) {
 					printf("Merge conflict in position (%s vs %s), assuming second.\n",
-					       team->matches[i]->position,
-					       team->matches[i+j]->position);
-					strcpy(team->matches[i]->position, team->matches[i+j]->position);
+					       position_int_to_string(team->matches[i]->position),
+					       position_int_to_string(team->matches[i+j]->position));
+					team->matches[i]->position = team->matches[i+j]->position;
 				}
 				
 				if(strcmp(team->matches[i]->notes, team->matches[i+j]->notes)) {

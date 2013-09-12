@@ -41,7 +41,7 @@ json_t *make_json_from_db()
 			json_t *match;
 			match = json_object();
 
-			json_object_set(match, "position", json_string(database_get_nth_element(i)->matches[j]->position));
+			json_object_set(match, "position", json_integer(database_get_nth_element(i)->matches[j]->position));
 			json_object_set(match, "round", json_string(database_get_nth_element(i)->matches[j]->round));
 			json_object_set(match, "notes", json_string(database_get_nth_element(i)->matches[j]->notes));
 
@@ -68,15 +68,16 @@ int populate_db_from_json(json_t *json)
 		for(j = 0; j < json_array_size(matches_json); j++) {
 			json_t *match = json_array_get(matches_json, j);
 			
-			matches[j] = match_new_from_data((char *)json_string_value(json_object_get(match, "position")),
+			matches[j] = match_new_from_data(json_integer_value(json_object_get(match, "position")),
 			                                 (char *)json_string_value(json_object_get(match, "round")),
 			                                 (char *)json_string_value(json_object_get(match, "notes")));
 		}
 		
-		database_add_team(team_new_from_data(json_integer_value (json_object_get(team, "number")),
-		                                     (char *)json_string_value(json_object_get(team, "name")),
-		                                     matches,
-		                                     (unsigned int)j));
+		database_add_team(team_new_from_data_sorted(json_integer_value(json_object_get(team, "number")),
+		                                            (char *)json_string_value(json_object_get(team, "name")),
+		                                            matches,
+		                                            (unsigned int)j,
+		                                            json_integer_value(json_object_get(team, "value"))));
 	}
 
 	return 0;

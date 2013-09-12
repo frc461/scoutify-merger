@@ -39,7 +39,7 @@ match_t *load_match_file(char *path, char *team)
 	}
 
 	match_set_from_data(ret,
-	                    (char *)json_string_value(json_object_get(json, "position")),
+	                    position_string_to_int((char *)json_string_value(json_object_get(json, "position"))),
 	                    (char *)json_string_value(json_object_get(json, "round")),
 	                    (char *)json_string_value(json_object_get(json, "notes")));
 

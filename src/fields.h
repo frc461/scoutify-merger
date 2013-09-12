@@ -17,36 +17,11 @@
     along with scoutify-hub.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <stdlib.h>
-#include <stdio.h>
+#ifndef FIELDS_H
+#define FIELDS_H
 
-#include <src/sort.h>
+int position_string_to_int(char *position);
 
-int find_value(team_t *team)
-{
-	return team->num_matches;
-}
+char *position_int_to_string(int position);
 
-int set_sort_value(team_t *team)
-{
-	team->value = find_value(team);
-	return 0;
-}
-
-int compare(const void *a, const void *b)
-{
-	return (*(const team_t **)b)->value - (*(const team_t **)a)->value;
-}
-
-int database_sort()
-{
-	for(int i = 0; database_get_nth_element(i); i++) {
-		set_sort_value(database_get_nth_element(i));
-	}
-	qsort(_unrestricted_db_(),
-	      _database_num_elements_(),
-	      sizeof(team_t *),
-	      compare);
-	return 0;
-}
-
+#endif

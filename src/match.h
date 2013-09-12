@@ -20,16 +20,26 @@
 #ifndef MATCH_H
 #define MATCH_H
 
+#include <src/fields.h>
+
 typedef struct match {
 	// team is implied because the match should be withing a team struct
-	char position[4];
+	int position;
+	/*
+	 * 1 = R1
+	 * 2 = R2
+	 * 3 = R3
+	 * 4 = B1
+	 * 5 = B2
+	 * 6 = B3
+	 */
 	char round[16];
 	char notes[256];
 } match_t;
 
 match_t *match_new();
-match_t *match_new_from_data(char position[4], char round[16], char notes[256]);
-int match_set_from_data(match_t *in, char position[4], char round[16], char notes[256]);
+match_t *match_new_from_data(int position, char round[16], char notes[256]);
+int match_set_from_data(match_t *in, int position, char round[16], char notes[256]);
 
 int match_free();
 

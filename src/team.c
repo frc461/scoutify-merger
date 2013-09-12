@@ -50,6 +50,23 @@ team_t *team_new_from_data(unsigned int number, char name[128], match_t **matche
 	return ret;
 }
 
+team_t *team_new_from_data_sorted(unsigned int number, char name[128], match_t **matches, unsigned int num_matches, int value)
+{ team_t *ret = team_new();
+
+	/*
+	 * TODO: add validations, perhaps detect if stuff isn't allocated and call functions to allocate it [matches ptr]
+	 */
+	
+	ret->number = number;
+	strcpy(ret->name, name);
+	ret->matches = matches;
+	ret->num_matches = num_matches;
+	ret->value = value;
+
+	return ret;
+}
+
+
 int team_set_from_data(team_t *in, unsigned int number, char name[128], match_t **matches, unsigned int num_matches)
 {
 	in->number = number;
