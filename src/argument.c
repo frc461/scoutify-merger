@@ -158,17 +158,39 @@ int argument_get_number_of_elements_in_system_list()
 
 argument_t *argument_system_list_get_nth_element(int n)
 { argument_t *argument = _root_argument_;
+	/*
+	 * Counter to count up to n.
+	 */
 	int c = 0;
+
+	/*
+	 * Loop while we still have some elements to continue through.
+	 */
 	while(c < n) {
+		/*
+		 *  Make sure we're not setting our argument "iterator" to NULL
+		 * (which is bad because segfaults >:[)
+		 *
+		 *  If the next is NULL (but we still have some more iterations
+		 * to do because we haven't returned yet) then return the current
+		 * argument, because at least that's some progress through the tree,
+		 * and some progress is better than a segfault.
+		 *
+		 *  If the next isn't NULL, then traverse up it and set our argument
+		 * iterator to the next.
+		 */
 		if(argument->next != NULL) {
 			argument = argument->next;
 		} else {
 			return argument;
 		}
-		
+
 		c += 1;
 	}
 
+	/*
+	 * Return our iterator thing.
+	 */
 	return argument;
 }
 
