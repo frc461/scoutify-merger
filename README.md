@@ -13,7 +13,7 @@ Usage
 API
 ---
 
-Generally speaking, if you're editing raw values there's probably something you're doing wrong.
+Generally speaking, if you're editing raw values you're doing it wrong.
 For example, you should never set values in the database by hand as records are updated when the right functions are called and setting values by hand does not call them.
 Likewise, manually inserting arguments into the global argument stack is a bad idea as things can go very wrong.
 If you need a function to do a specific purpose, you can ask for it or write it yourself, but don't just change values by hand.
