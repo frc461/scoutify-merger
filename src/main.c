@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
 
 	merge_all();
 
-	database_sort();
+	if(arguments != 0) database_sort(); // If stuff was added, sort
 
 	database_display();
 	database_display_table_mode();
