@@ -160,7 +160,12 @@ argument_t *argument_system_list_get_nth_element(int n)
 { argument_t *argument = _root_argument_;
 	int c = 0;
 	while(c < n) {
-		argument = argument->next;
+		if(argument->next != NULL) {
+			argument = argument->next;
+		} else {
+			return argument;
+		}
+		
 		c += 1;
 	}
 
