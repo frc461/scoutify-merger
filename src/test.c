@@ -39,4 +39,7 @@ bool test_hook_match_key(test_hook_t *hook_a, char *key_b);
 void test_execute_all_hooks();
 void test_execute_all_hooks_after(test_hook_t *hook);
 void test_execute_all_hooks_after_matching_key(char *key);
+void test_execute_all_hooks_before(test_hook_t *hook);
+void test_execute_all_hooks_before_matching_key(char *key);
+
 void test_execute_hook(test_hook_t *hook);
