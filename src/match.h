@@ -23,10 +23,9 @@
 #include <src/fields.h>
 
 typedef struct match {
-	// team is implied because the match should be withing a team struct
+	/* team is implied because the match should be withing a team struct */
 	int position;
-	/*
-	 * 1 = R1
+	/* 1 = R1
 	 * 2 = R2
 	 * 3 = R3
 	 * 4 = B1

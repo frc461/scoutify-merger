@@ -44,9 +44,11 @@ int merge_teams()
 				
 				database_delete_nth_element(i+j);
 			} else {
-				j++; // only increment if we didn't replace
-				     // (if we used database_delete_nth_element, the element was replaced
-				     // and we need to test the element that now occupies the old one's spot)
+				j++; /*  only increment if we didn't replace (if we used
+				      * database_delete_nth_element, the element was
+				      * replaced and we need to test the element that now
+				      * occupies the old one's spot)
+				      */
 			}
 		}
 		team_set_from_data(database_get_nth_element(i),
@@ -88,7 +90,7 @@ int merge_matches(team_t *team)
 				team->matches[i+j] = team->matches[team->num_matches - 1];
 				team->num_matches--;
 			} else {
-				j++; // see above reasoning in merge_teams
+				j++; /* see above reasoning in merge_teams */
 			}
 		}
 	}
