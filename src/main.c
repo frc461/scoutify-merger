@@ -28,6 +28,11 @@
 
 int main(int argc, char *argv[])
 {
+#ifdef RUN_TESTS
+	printf("Running tests!\n");
+	return 0;
+#endif
+	
 	argument_build_system_list_from_arguments(argc, argv);
 
 	database_init();
