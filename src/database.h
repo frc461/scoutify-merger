@@ -22,19 +22,17 @@
 
 #include <src/team.h>
 
-/*
- * UNDER NO CIRUMSTANCE SHOULD YOU DIRECTLY ACCESS THE DATABASE.
+/* UNDER NO CIRUMSTANCE SHOULD YOU DIRECTLY ACCESS THE DATABASE.
  * 
  * ALWAYS USE THESE ABSTRACTION FUNCTIONS.
  */
 
-team_t **_db_; // global database (array of teams)
 
-extern int _db_end_; // pointer to end of db
+team_t **_db_; /* global database (array of teams) */
 
-/*
- * The following are okay for use.
- */
+extern int _db_end_; /* pointer to end of db */
+
+/* The following are okay for use. */
 
 void database_init();
 
@@ -46,9 +44,7 @@ int database_set_nth_element(int n, team_t *team);
 
 int database_delete_nth_element(int n);
 
-/*
- * Avoid the following two functions if at all possible.
- */
+/* Avoid using the following two functions if at all possible. */
 
 int _database_num_elements_();
 

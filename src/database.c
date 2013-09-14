@@ -21,17 +21,14 @@
 
 #include <src/database.h>
 
-/*
- * UNDER NO CIRUMSTANCE SHOULD YOU DIRECTLY ACCESS THE DATABASE.
+/* UNDER NO CIRUMSTANCE SHOULD YOU DIRECTLY ACCESS THE DATABASE.
  *
  * ALWAYS USE THESE ABSTRACTION FUNCTIONS.
  */
 
 int _db_end_ = 0;
 
-/*
- * The following are okay for use.
- */
+/* The following are okay for use. */
 
 void database_init() {
  	_db_ = malloc(sizeof(team_t *)*256);
@@ -56,8 +53,7 @@ int database_set_nth_element(int n, team_t *team) {
 	return 0;
 }
 
-/*
- * Delete an element out of the db by replacing it with the element at the end
+/*  Delete an element out of the db by replacing it with the element at the end
  * and decrementing the end pointer.
  */
 int database_delete_nth_element(int n) {
@@ -66,9 +62,7 @@ int database_delete_nth_element(int n) {
 	_db_end_--;
 }
 
-/*
- * Avoid the following two functions if at all possible.
- */
+/* Avoid the following two functions if at all possible. */
 
 int _database_num_elements_() {
 	return _db_end_;
