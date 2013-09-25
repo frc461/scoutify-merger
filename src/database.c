@@ -29,7 +29,6 @@
 int _db_end_ = 0;
 
 /* The following are okay for use. */
-
 void database_init() {
  	_db_ = malloc(sizeof(team_t *)*256);
 	_db_end_ = 0;
@@ -63,7 +62,6 @@ int database_delete_nth_element(int n) {
 }
 
 /* Avoid the following two functions if at all possible. */
-
 int _database_num_elements_() {
 	return _db_end_;
 }
