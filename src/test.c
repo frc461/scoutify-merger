@@ -4,6 +4,8 @@
 
 #include <src/test.h>
 
+#ifdef RUN_TESTS
+
 test_hook_t *_test_hook_linked_list_ = NULL;
 
 test_hook_t *_test_hook_new_empty_()
@@ -115,7 +117,6 @@ void _test_execute_hook_(test_hook_t *hook)
 	hook->hook_function(_test_callback_global_data_);
 }
 
-#ifdef RUN_TESTS
 
 void *_test_callback_global_data_ = NULL;
 
