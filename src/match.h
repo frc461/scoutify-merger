@@ -34,13 +34,43 @@ typedef struct match {
 	 * 6 = B3
 	 */
 	char round[16];
+
+	// note: for now we are disregarding event, we may add that functionality in the future,
+	// but it can't hurt to have it in the form.
+	
+	int auto_shots;
+	int auto_scores;
+	int auto_goal;
+	int teleop_shots;
+	int teleop_scores;
+	int teleop_goal;
+	int climb_tier;
+
 	char notes[256];
 } match_t;
 
 match_t *match_new();
-match_t *match_new_from_data(int position, char round[16], char notes[256]);
-int match_set_from_data(match_t *in, int position, char round[16], char notes[256]);
-
+match_t *match_new_from_data(int position,
+                             char round[16],
+                             int auto_shots,
+                             int auto_scores,
+                             int auto_goal,
+                             int teleop_shots,
+                             int teleop_scores,
+                             int teleop_goal,
+                             int climb_tier,
+                             char notes[256]);
+int match_set_from_data(match_t *in,
+                        int position,
+                        char round[16],
+                        int auto_shots,
+                        int auto_scores,
+                        int auto_goal,
+                        int teleop_shots,
+                        int teleop_scores,
+                        int teleop_goal,
+                        int climb_tier,
+                        char notes[256]);
 int match_free();
 
 #endif

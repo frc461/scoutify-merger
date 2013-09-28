@@ -32,7 +32,16 @@ match_t *match_new()
 /*
  * Creates a new match struct and populates it with the arguments given as the data
  */
-match_t *match_new_from_data(int position, char round[16], char notes[256])
+match_t *match_new_from_data(int position,
+                             char round[16],
+                             int auto_shots,
+                             int auto_scores,
+                             int auto_goal,
+                             int teleop_shots,
+                             int teleop_scores,
+                             int teleop_goal,
+                             int climb_tier,
+                             char notes[256])
 { match_t *ret = match_new();
 
 	/*
@@ -41,15 +50,39 @@ match_t *match_new_from_data(int position, char round[16], char notes[256])
 	
 	ret->position = position;
 	strcpy(ret->round, round);
+	ret->auto_shots = auto_shots;
+	ret->auto_scores = auto_scores;
+	ret->auto_goal = auto_goal;
+	ret->teleop_shots = teleop_shots;
+	ret->teleop_scores = teleop_scores;
+	ret->teleop_goal = teleop_goal;
+	ret->climb_tier = climb_tier;
 	strcpy(ret->notes, notes);
 
 	return ret;
 }
 
-int match_set_from_data(match_t *in, int position, char round[16], char notes[256])
+int match_set_from_data(match_t *in,
+                        int position,
+                        char round[16],
+                        int auto_shots,
+                        int auto_scores,
+                        int auto_goal,
+                        int teleop_shots,
+                        int teleop_scores,
+                        int teleop_goal,
+                        int climb_tier,
+                        char notes[256])
 {
 	in->position = position;
 	strcpy(in->round, round);
+	in->auto_shots = auto_shots;
+	in->auto_scores = auto_scores;
+	in->auto_goal = auto_goal;
+	in->teleop_shots = teleop_shots;
+	in->teleop_scores = teleop_scores;
+	in->teleop_goal = teleop_goal;
+	in->climb_tier = climb_tier;
 	strcpy(in->notes, notes);
 
 	return 0;
