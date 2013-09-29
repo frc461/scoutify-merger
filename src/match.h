@@ -73,4 +73,6 @@ int match_set_from_data(match_t *in,
                         char notes[256]);
 int match_free();
 
+int print_match(match_t *match);
+
 #endif

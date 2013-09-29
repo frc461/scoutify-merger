@@ -85,8 +85,10 @@ int populate_db_from_json(json_t *json)
 			                                 json_integer_value(json_object_get(match, "teleop_goal")),
 			                                 json_integer_value(json_object_get(match, "climb_tier")),
 			                                 (char *)json_string_value(json_object_get(match, "notes")));
+			// printf("loaded match j=%i round=\"%s\"\n", j, matches[j]->round);
+			// print_match(matches[j]);
 		}
-		
+
 		database_add_team(team_new_from_data_sorted(json_integer_value(json_object_get(team, "number")),
 		                                            (char *)json_string_value(json_object_get(team, "name")),
 		                                            matches,

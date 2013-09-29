@@ -38,8 +38,6 @@ match_t *load_match_file(char *path, char *team)
 		return NULL;
 	}
 
-	printf("%s", json_dumps(json, 0));
-
 	match_set_from_data(ret,
 	                    position_string_to_int((char *)json_string_value(json_object_get(json, "position"))),
 	                    (char *)json_string_value(json_object_get(json, "round")),
@@ -51,27 +49,6 @@ match_t *load_match_file(char *path, char *team)
 	                    json_integer_value(json_object_get(json, "teleop_goal")),
 	                    json_integer_value(json_object_get(json, "climb_tier")),
 	                    (char *)json_string_value(json_object_get(json, "notes")));
-
-	printf("position: %u %u\n", ret->position,
-	       position_string_to_int((char *)json_string_value(json_object_get(json, "position"))));
-	printf("round: %s %s\n", ret->round,
-	       (char *)json_string_value(json_object_get(json, "round")));
-	printf("auto_shots: %u %s\n", ret->auto_shots,
-	       json_string_value(json_object_get(json, "auto_shots")));
-	printf("auto_scores: %u %s \n", ret->auto_scores,
-	       json_string_value(json_object_get(json, "auto_scores")));
-	printf("auto_goal: %u %s \n", ret->auto_goal,
-	       json_string_value(json_object_get(json, "auto_goal")));
-	printf("teleop_shots: %u %s \n", ret->teleop_shots,
-	       json_string_value(json_object_get(json, "teleop_shots")));
-	printf("teleop_scores: %u %s \n", ret->teleop_scores,
-	       json_string_value(json_object_get(json, "teleop_scores")));
-	printf("teleop_goal: %u %s \n", ret->teleop_goal,
-	       json_string_value(json_object_get(json, "teleop_goal")));
-	printf("climb_tier: %u %s \n", ret->climb_tier,
-	       json_string_value(json_object_get(json, "climb_tier")));
-	printf("notes: %s %s\n", ret->notes,
-	       (char *)json_string_value(json_object_get(json, "notes")));
 
 	return ret;
 }

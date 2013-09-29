@@ -17,6 +17,7 @@
     along with scoutify-hub.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -89,3 +90,18 @@ int match_set_from_data(match_t *in,
 }
 
 int match_free();
+
+int print_match(match_t *match)
+{
+	printf("position_num: %i\n", match->position);
+	printf("round: %s\n", match->round);
+	printf("auto_shots: %i\n", match->auto_shots);
+	printf("auto_scores: %i\n", match->auto_scores);
+	printf("auto_goal: %i\n", match->auto_goal);
+	printf("teleop_shots: %i\n", match->teleop_shots);
+	printf("teleop_scores: %i\n", match->teleop_scores);
+	printf("teleop_goal: %i\n", match->teleop_goal);
+	printf("climb_tier: %i\n", match->climb_tier);
+	printf("notes: %s\n", match->notes);
+
+}
