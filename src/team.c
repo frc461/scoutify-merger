@@ -22,45 +22,25 @@
 
 #include <src/team.h>
 
-/*
- * Simply creates, allocates, and returns an empty team structure (pointers inside may not be initialized!)
- */
+/* Simply creates, allocates, and returns an empty team structure (pointers inside may not be initialized!) */
 
 team_t *team_new()
 { team_t *ret = malloc(sizeof(team_t));
 	return ret;
 }
 
-/*
- * Creates a new team struct and populates it with the arguments given as the data
- */
+/* Creates a new team struct and populates it with the arguments given as the data */
 
 team_t *team_new_from_data(unsigned int number, char name[128], match_t **matches, unsigned int num_matches)
 { team_t *ret = team_new();
-
-	/*
-	 * TODO: add validations, perhaps detect if stuff isn't allocated and call functions to allocate it [matches ptr]
-	 */
+	team_set_from_data(ret, number, name, matches, num_matches);
 	
-	ret->number = number;
-	strcpy(ret->name, name);
-	ret->matches = matches;
-	ret->num_matches = num_matches;
-
 	return ret;
 }
 
 team_t *team_new_from_data_sorted(unsigned int number, char name[128], match_t **matches, unsigned int num_matches, int value)
 { team_t *ret = team_new();
-
-	/*
-	 * TODO: add validations, perhaps detect if stuff isn't allocated and call functions to allocate it [matches ptr]
-	 */
-	
-	ret->number = number;
-	strcpy(ret->name, name);
-	ret->matches = matches;
-	ret->num_matches = num_matches;
+	team_set_from_data(ret, number, name, matches, num_matches);
 	ret->value = value;
 
 	return ret;
@@ -69,6 +49,8 @@ team_t *team_new_from_data_sorted(unsigned int number, char name[128], match_t *
 
 int team_set_from_data(team_t *in, unsigned int number, char name[128], match_t **matches, unsigned int num_matches)
 {
+	/* TODO: add validations, perhaps detect if stuff isn't allocated and call functions to allocate it [matches ptr] */
+
 	in->number = number;
 	strcpy(in->name, name);
 	in->matches = matches;

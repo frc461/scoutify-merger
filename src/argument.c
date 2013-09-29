@@ -52,35 +52,25 @@ void _argument_insert_after_argument_(argument_t *argument, argument_t *to_inser
 	if(argument == NULL) {
 		_root_argument_ = to_insert;
 	} else {
-		/*
-		 * If we've already got a 'next' member in 'argument', and it's not NULL, then
+		/* If we've already got a 'next' member in 'argument', and it's not NULL, then
 		 * that means there's probably some other argument coming after the given argument.
 		 */
 		if(argument->next != NULL) {
-			/*
-			 * Warn the user (hardly ever happens because the only time this function should
+			/* Warn the user (hardly ever happens because the only time this function should
 			 * be called is by the system list generator and it does things nicely and in sequence)
 			 */
 			printf("insertion detected previous next @0x%x w/ parent @0x%x\n", argument->next, argument);
 			printf("%4s(we'll make a copy and then insert that as the next of the insertion)\n", "");
 			
-			/*
-			 * Make a copy of the previous 'next' member
-			 */
+			/* Make a copy of the previous 'next' member */
 			argument_t *previous_next = argument->next;
-			/*
-			 * Then insert the given argument pointer.
-			 */
+			/* Then insert the given argument pointer. */
 			argument->next = to_insert;
-			/*
-			 * Then set the next of the given argument pointer to be the copy.
-			 */
+			/* Then set the next of the given argument pointer to be the copy. */
 			argument->next->next = previous_next;
 			return;
 		} else {
-			/*
-			 * Otherwise, just set the next to be the next.
-			 */
+			/* Otherwise, just set the next to be the next. */
 			argument->next = to_insert;
 		}
 	}
@@ -108,9 +98,7 @@ argument_t *_argument_get_last_argument_in_system_list_()
 
 void argument_build_system_list_from_arguments(int argc, char *argv[])
 {
-	/*
-	 * We always should have argv[0], at the least
-	 */
+	/* We always should have argv[0], at the least */
 	_root_argument_ = _argument_new_from_data_(0, argv[0]);
 	
 	for(int i = 1; i < argc; i += 1) {
@@ -136,13 +124,10 @@ void argument_debug_system_list()
 
 int argument_get_number_of_elements_in_system_list()
 { int ret = 0;
-	/*
-	 * Get an iterator, preset to the root argument
-	 */
+	/* Get an iterator, preset to the root argument */
 	argument_t *i = _root_argument_;
 
-	/*
-	 * Move the iterator to whatever the iterator's 'next' member is,
+	/*  Move the iterator to whatever the iterator's 'next' member is,
 	 * until the iterator becomes null. Increment a counter.
 	 */
 	while(i != NULL) {
@@ -150,25 +135,18 @@ int argument_get_number_of_elements_in_system_list()
 		i = i->next;
 	}
 
-	/*
-	 * Return the counter.
-	 */
+	/* Return the counter. */
 	return ret;
 }
 
 argument_t *argument_system_list_get_nth_element(int n)
 { argument_t *argument = _root_argument_;
-	/*
-	 * Counter to count up to n.
-	 */
+	/* Counter to count up to n. */
 	int c = 0;
 
-	/*
-	 * Loop while we still have some elements to continue through.
-	 */
+	/* Loop while we still have some elements to continue through. */
 	while(c < n) {
-		/*
-		 *  Make sure we're not setting our argument "iterator" to NULL
+		/*  Make sure we're not setting our argument "iterator" to NULL
 		 * (which is bad because segfaults >:[)
 		 *
 		 *  If the next is NULL (but we still have some more iterations
@@ -188,23 +166,17 @@ argument_t *argument_system_list_get_nth_element(int n)
 		c += 1;
 	}
 
-	/*
-	 * Return our iterator thing.
-	 */
+	/* Return our iterator thing. */
 	return argument;
 }
 
 argument_t **argument_get_array_of_argument_pointers_from_system_list()
 { argument_t **ret = malloc(sizeof(argument_t *) * argument_get_number_of_elements_in_system_list());
-	/*
-	 * A counter and an iterator.
-	 */
+	/* A counter and an iterator. */
 	unsigned int counter = 0;
 	argument_t *i = _root_argument_;
 
-	/*
-	 *  Iterate through the argument L.L. and generate the array of pointers.
-	 */
+	/* Iterate through the argument L.L. and generate the array of pointers.*/
 	while(i != NULL) {
 		ret[counter] = i;
 		counter += 1;
@@ -216,9 +188,7 @@ argument_t **argument_get_array_of_argument_pointers_from_system_list()
 
 char **argument_get_argument_values_from_system_list()
 { char **ret = malloc(sizeof(char *) * argument_get_number_of_elements_in_system_list() - 1);
-	/*
-	 * Pretty simple iteration here.
-	 */
+	/* Pretty simple iteration here. */
 	for(int i = 1; i < argument_get_number_of_elements_in_system_list(); i += 1) {
 		ret[i - 1] = argument_system_list_get_nth_element(i)->value;
 	}

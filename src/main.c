@@ -23,11 +23,24 @@
 #include <src/database.h>
 #include <src/display.h>
 #include <src/file.h>
+#include <src/test.h>
 
 #include <src/main.h>
 
 int main(int argc, char *argv[])
 {
+#ifdef RUN_TESTS
+	printf("Running tests!\n");
+
+	test_hook_new_add("PRINTER", test_callback_test_print);
+	
+	_test_callback_global_data_ = "TEST DATA";
+		
+	test_execute_all_hooks();
+
+	return 0;
+#endif
+	
 	argument_build_system_list_from_arguments(argc, argv);
 
 	database_init();
@@ -43,7 +56,7 @@ int main(int argc, char *argv[])
 
 	merge_all();
 
-	if(arguments != 0) database_sort(); // If stuff was added, sort
+	if(arguments != 0) database_sort(); /* If stuff was added, sort */
 
 	database_display();
 	database_display_table_mode();

@@ -23,16 +23,13 @@
 
 #include <src/match.h>
 
-/*
- * Simply creates, allocates, and returns an empty match structure (pointers inside may not be initialized!)
- */
+/* Simply creates, allocates, and returns an empty match structure (pointers inside may not be initialized!) */
 match_t *match_new()
 { match_t *ret = malloc(sizeof(match_t));
 	return ret;
 }
-/*
- * Creates a new match struct and populates it with the arguments given as the data
- */
+
+/* Creates a new match struct and populates it with the arguments given as the data */
 match_t *match_new_from_data(int position,
                              char round[16],
                              int auto_shots,
@@ -45,9 +42,7 @@ match_t *match_new_from_data(int position,
                              char notes[256])
 { match_t *ret = match_new();
 
-	/*
-	 * TODO: add validations, perhaps detect if stuff isn't allocated and call functions to allocate it [matches ptr]
-	 */
+	/* TODO: add validations, perhaps detect if stuff isn't allocated and call functions to allocate it [matches ptr] */
 	
 	ret->position = position;
 	strcpy(ret->round, round);
