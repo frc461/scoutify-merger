@@ -11,7 +11,7 @@ LINKFLAGS=$(FLAGS)
 HEADERS=$(wildcard src/*.h) $(wildcard src/*/*.h) $(wildcard lib/*.h)
 PROGRAMOBJECTS=$(patsubst src/%.c,obj/%.o,$(wildcard src/*.c)) $(patsubst src/%.c,obj/%.o,$(wildcard src/*/*.c))
 
-PROGRAMFILE=bin/$(notdir $(shell pwd)).$(shell arch)
+PROGRAMFILE=scoutify-merger.$(shell arch)
 
 all: $(PROGRAMFILE) tags
 

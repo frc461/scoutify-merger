@@ -17,6 +17,7 @@
 *.app
 *.i*86
 *.x86_64
+scoutify-merger.*
 
 # Tag table
 src/TAGS
