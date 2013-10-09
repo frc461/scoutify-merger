@@ -30,18 +30,18 @@ int merge_teams()
 		match_t **matches = malloc(sizeof(match_t *)*128);
 		int num_matches = database_get_nth_element(i)->num_matches;
 		matches = database_get_nth_element(i)->matches;
-		
+
 		for(int j = 1; database_get_nth_element(i+j);) {
-			
+
 			if(database_get_nth_element(i)->number ==
 			   database_get_nth_element(i+j)->number) {
-				
+
 				memcpy(&matches[num_matches],
 				       database_get_nth_element(i+j)->matches,
-				       (sizeof(match_t)*database_get_nth_element(i+j)->num_matches));
-				
+				       (sizeof(match_t *)*database_get_nth_element(i+j)->num_matches));
+
 				num_matches += database_get_nth_element(i+j)->num_matches;
-				
+
 				database_delete_nth_element(i+j);
 			} else {
 				j++; /*  only increment if we didn't replace (if we used
@@ -64,12 +64,15 @@ int merge_matches(team_t *team)
 {
 	for(int i = 0; i < team->num_matches; i++) {
 		for(int j = 1; (i + j) < team->num_matches;) {
-			
+
 			if(!strcmp(team->matches[i]->round, team->matches[i+j]->round)) {
 
 				printf("Merging matches %u: %s and %u: %s\n",
 				       i, team->matches[i]->round,
 				       i+j, team->matches[i+j]->round);
+
+				/* print_match(team->matches[i]); */
+				/* print_match(team->matches[i+j]); */
 
 				if(team->matches[i]->position != team->matches[i+j]->position) {
 					printf("Merge conflict in position (%s vs %s), assuming second.\n",
@@ -77,7 +80,7 @@ int merge_matches(team_t *team)
 					       position_int_to_string(team->matches[i+j]->position));
 					team->matches[i]->position = team->matches[i+j]->position;
 				}
-				
+
 				if(strcmp(team->matches[i]->notes, team->matches[i+j]->notes)) {
 					char new_notes[256];
 					printf("Merge conflict in notes, concatenating.\n");
@@ -87,8 +90,13 @@ int merge_matches(team_t *team)
 					strcpy(team->matches[i]->notes, new_notes);
 				}
 
+				/*
+				 * WARNING! SHOULD BE BETTER!
+				 * We should free up the extra space and stuff.
+				 */
 				team->matches[i+j] = team->matches[team->num_matches - 1];
 				team->num_matches--;
+
 			} else {
 				j++; /* see above reasoning in merge_teams */
 			}
@@ -99,7 +107,25 @@ int merge_matches(team_t *team)
 
 int merge_all()
 {
+	/* printf("before merging\n"); */
+	/* for(int i = 0; database_get_nth_element(i); i++) { */
+	/* 	team_t *team = database_get_nth_element(i); */
+	/* 	printf("team %i\n", team->number); */
+	/* 	for(int j = 0; j < team->num_matches; j++) { */
+	/* 		print_match(team->matches[j]); */
+	/* 	} */
+	/* } */
+
 	merge_teams();
+
+	/* printf("after team merging\n"); */
+	/* for(int i = 0; database_get_nth_element(i); i++) { */
+	/* 	team_t *team = database_get_nth_element(i); */
+	/* 	printf("team %i\n", team->number); */
+	/* 	for(int j = 0; j < team->num_matches; j++) { */
+	/* 		print_match(team->matches[j]); */
+	/* 	} */
+	/* } */
 
 	for(int i = 0; database_get_nth_element(i); i++) {
 		merge_matches(database_get_nth_element(i));

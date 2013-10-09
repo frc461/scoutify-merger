@@ -41,7 +41,14 @@ json_t *make_json_from_db()
 			json_t *match;
 			match = json_object();
 
-			json_object_set(match, "position", json_integer(database_get_nth_element(i)->matches[j]->position));
+			json_object_set(match, "position_num", json_integer(database_get_nth_element(i)->matches[j]->position));
+			json_object_set(match, "auto_shots", json_integer(database_get_nth_element(i)->matches[j]->auto_shots));
+			json_object_set(match, "auto_scores", json_integer(database_get_nth_element(i)->matches[j]->auto_scores));
+			json_object_set(match, "auto_goal", json_integer(database_get_nth_element(i)->matches[j]->auto_goal));
+			json_object_set(match, "teleop_shots", json_integer(database_get_nth_element(i)->matches[j]->teleop_shots));
+			json_object_set(match, "teleop_scores", json_integer(database_get_nth_element(i)->matches[j]->teleop_scores));
+			json_object_set(match, "teleop_goal", json_integer(database_get_nth_element(i)->matches[j]->teleop_goal));
+			json_object_set(match, "climb_tier", json_integer(database_get_nth_element(i)->matches[j]->climb_tier));
 			json_object_set(match, "round", json_string(database_get_nth_element(i)->matches[j]->round));
 			json_object_set(match, "notes", json_string(database_get_nth_element(i)->matches[j]->notes));
 
@@ -67,12 +74,21 @@ int populate_db_from_json(json_t *json)
 		int j;
 		for(j = 0; j < json_array_size(matches_json); j++) {
 			json_t *match = json_array_get(matches_json, j);
-			
-			matches[j] = match_new_from_data(json_integer_value(json_object_get(match, "position")),
+
+			matches[j] = match_new_from_data(json_integer_value(json_object_get(match, "position_num")),
 			                                 (char *)json_string_value(json_object_get(match, "round")),
+			                                 json_integer_value(json_object_get(match, "auto_shots")),
+			                                 json_integer_value(json_object_get(match, "auto_scores")),
+			                                 json_integer_value(json_object_get(match, "auto_goal")),
+			                                 json_integer_value(json_object_get(match, "teleop_shots")),
+			                                 json_integer_value(json_object_get(match, "teleop_scores")),
+			                                 json_integer_value(json_object_get(match, "teleop_goal")),
+			                                 json_integer_value(json_object_get(match, "climb_tier")),
 			                                 (char *)json_string_value(json_object_get(match, "notes")));
+			// printf("loaded match j=%i round=\"%s\"\n", j, matches[j]->round);
+			// print_match(matches[j]);
 		}
-		
+
 		database_add_team(team_new_from_data_sorted(json_integer_value(json_object_get(team, "number")),
 		                                            (char *)json_string_value(json_object_get(team, "name")),
 		                                            matches,

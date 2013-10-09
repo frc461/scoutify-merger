@@ -41,6 +41,13 @@ match_t *load_match_file(char *path, char *team)
 	match_set_from_data(ret,
 	                    position_string_to_int((char *)json_string_value(json_object_get(json, "position"))),
 	                    (char *)json_string_value(json_object_get(json, "round")),
+	                    json_integer_value(json_object_get(json, "auto_shots")),
+	                    json_integer_value(json_object_get(json, "auto_scores")),
+	                    json_integer_value(json_object_get(json, "auto_goal")),
+	                    json_integer_value(json_object_get(json, "teleop_shots")),
+	                    json_integer_value(json_object_get(json, "teleop_scores")),
+	                    json_integer_value(json_object_get(json, "teleop_goal")),
+	                    json_integer_value(json_object_get(json, "climb_tier")),
 	                    (char *)json_string_value(json_object_get(json, "notes")));
 
 	return ret;
@@ -136,6 +143,7 @@ int populate_db_from_file(char *path)
 	json_error_t error;
 
 	json = json_load_file(path, 0, &error);
+
 	if(!json) {
 		fprintf(stderr, "ERROR: %s\n", error.text);
 		return -1;
