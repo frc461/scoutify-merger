@@ -35,19 +35,23 @@ void database_init() {
 }
 
 int database_add_team(team_t *team) {
-	if(_db_end_ >= 256) return -1;
+	if(_db_end_ >= 256)
+		return -1;
+	
 	_db_[_db_end_] = team;
 	_db_end_++;
+	
 	return 0;
 }
 
 team_t *database_get_nth_element(int n) {
-	if(n >= _db_end_) return NULL;
-	else return _db_[n];
+	return n >= _db_end_ ? NULL :  _db_[n];
 }
 
 int database_set_nth_element(int n, team_t *team) {
-	if(n >= _db_end_) return -1;
+	if(n >= _db_end_)
+		return -1;
+	
 	_db_[n] = team;
 	return 0;
 }
@@ -56,7 +60,9 @@ int database_set_nth_element(int n, team_t *team) {
  * and decrementing the end pointer.
  */
 int database_delete_nth_element(int n) {
-	if(n >= _db_end_) return -1;
+	if(n >= _db_end_)
+		return -1;
+	
 	_db_[n]= _db_[_db_end_ - 1];
 	_db_end_--;
 }
