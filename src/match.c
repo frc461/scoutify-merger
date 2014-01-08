@@ -30,7 +30,7 @@ match_t *match_new()
 }
 
 /* Creates a new match struct and populates it with the arguments given as the data */
-match_t *match_new_from_data(int position,
+match_t *match_new_from_data(position_t position,
                              char round[16],
                              int auto_shots,
                              int auto_scores,
@@ -59,7 +59,7 @@ match_t *match_new_from_data(int position,
 }
 
 int match_set_from_data(match_t *in,
-                        int position,
+                        position_t position,
                         char round[16],
                         int auto_shots,
                         int auto_scores,
@@ -88,7 +88,7 @@ int match_free();
 
 int print_match(match_t *match)
 {
-	printf("position_num: %i\n", match->position);
+	printf("position_num: %s\n", position_to_string(match->position));
 	printf("round: %s\n", match->round);
 	printf("auto_shots: %i\n", match->auto_shots);
 	printf("auto_scores: %i\n", match->auto_scores);

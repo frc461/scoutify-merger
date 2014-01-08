@@ -22,14 +22,15 @@
 
 #include <src/fields.h>
 
-int position_string_to_int(char *position)
-{   int ret;
-	if(!strcmp(position, "R1")) ret = 1;
-	else if(!strcmp(position, "R2")) ret = 2;
-	else if(!strcmp(position, "R3")) ret = 3;
-	else if(!strcmp(position, "B1")) ret = 4;
-	else if(!strcmp(position, "B2")) ret = 5;
-	else if(!strcmp(position, "B3")) ret = 6;
+position_t string_to_position(char *position)
+{	position_t ret;
+
+	if(!strcmp(position, "R1")) ret = POSITION_R1;
+	else if(!strcmp(position, "R2")) ret = POSITION_R2;
+	else if(!strcmp(position, "R3")) ret = POSITION_R3;
+	else if(!strcmp(position, "B1")) ret = POSITION_B1;
+	else if(!strcmp(position, "B2")) ret = POSITION_B2;
+	else if(!strcmp(position, "B3")) ret = POSITION_B3;
 	else {
 		fprintf(stderr, "ERROR: Position string not recognized: %s\n", position);
 		ret = 0;
@@ -38,26 +39,26 @@ int position_string_to_int(char *position)
 	return ret;
 }
 
-char *position_int_to_string(int position)
-{   char *ret;
+char *position_to_string(int position)
+{	char *ret;
 
 	switch(position) {
-	case 1:
+	case POSITION_R1:
 		ret = "R1";
 		break;
-	case 2:
+	case POSITION_R2:
 		ret = "R2";
 		break;
-	case 3:
+	case POSITION_R3:
 		ret = "R3";
 		break;
-	case 4:
+	case POSITION_B1:
 		ret = "B1";
 		break;
-	case 5:
+	case POSITION_B2:
 		ret = "B2";
 		break;
-	case 6:
+	case POSITION_B3:
 		ret = "B3";
 		break;
 	default:

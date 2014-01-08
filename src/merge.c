@@ -76,8 +76,8 @@ int merge_matches(team_t *team)
 
 				if(team->matches[i]->position != team->matches[i+j]->position) {
 					printf("Merge conflict in position (%s vs %s), assuming second.\n",
-					       position_int_to_string(team->matches[i]->position),
-					       position_int_to_string(team->matches[i+j]->position));
+					       position_to_string(team->matches[i]->position),
+					       position_to_string(team->matches[i+j]->position));
 					team->matches[i]->position = team->matches[i+j]->position;
 				}
 

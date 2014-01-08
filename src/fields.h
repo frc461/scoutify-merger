@@ -20,8 +20,18 @@
 #ifndef FIELDS_H
 #define FIELDS_H
 
-int position_string_to_int(char *position);
 
-char *position_int_to_string(int position);
+typedef enum {
+	POSITION_R1,
+	POSITION_R2,
+	POSITION_R3,
+	POSITION_B1,
+	POSITION_B2,
+	POSITION_B3
+} position_t;
+
+position_t string_to_position(char *position);
+
+char *position_to_string(int position);
 
 #endif

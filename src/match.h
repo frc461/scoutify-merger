@@ -24,14 +24,8 @@
 
 typedef struct match {
 	/* team is implied because the match should be withing a team struct */
-	int position;
-	/* 1 = R1
-	 * 2 = R2
-	 * 3 = R3
-	 * 4 = B1
-	 * 5 = B2
-	 * 6 = B3
-	 */
+	position_t position;
+
 	char round[16];
 
 	// note: for now we are disregarding event, we may add that functionality in the future,
@@ -49,7 +43,7 @@ typedef struct match {
 } match_t;
 
 match_t *match_new();
-match_t *match_new_from_data(int position,
+match_t *match_new_from_data(position_t position,
                              char round[16],
                              int auto_shots,
                              int auto_scores,
@@ -60,7 +54,7 @@ match_t *match_new_from_data(int position,
                              int climb_tier,
                              char notes[256]);
 int match_set_from_data(match_t *in,
-                        int position,
+                        position_t position,
                         char round[16],
                         int auto_shots,
                         int auto_scores,

@@ -19,6 +19,7 @@
 
 #include <src/json.h>
 #include <src/file.h>
+#include <src/fields.h>
 
 match_t *load_match_file(char *path, char *team)
 {   match_t *ret = match_new();
@@ -39,7 +40,7 @@ match_t *load_match_file(char *path, char *team)
 	}
 
 	match_set_from_data(ret,
-	                    position_string_to_int((char *)json_string_value(json_object_get(json, "position"))),
+	                    string_to_position((char *)json_string_value(json_object_get(json, "position"))),
 	                    (char *)json_string_value(json_object_get(json, "round")),
 	                    json_integer_value(json_object_get(json, "auto_shots")),
 	                    json_integer_value(json_object_get(json, "auto_scores")),
