@@ -32,23 +32,31 @@ match_t *load_match_file(char *path, char *team)
 		return NULL;
 	}
 	
-	if(team && strcmp(team, json_string_value(json_object_get(json, "team")))) {
-		fprintf(stderr, "ERROR: Teams do not match. (\"%s\" and \"%s\")\n",
+	if(team && (atoi(team) != json_integer_value(json_object_get(json, "team")))) {
+		fprintf(stderr, "ERROR: Teams do not match. (\"%s\" and \"%u\")\n",
 		        team,
-		        json_string_value(json_object_get(json, "team")));
+		        json_integer_value(json_object_get(json, "team")));
 		return NULL;
 	}
 
 	match_set_from_data(ret,
 	                    string_to_position((char *)json_string_value(json_object_get(json, "position"))),
 	                    (char *)json_string_value(json_object_get(json, "round")),
-	                    json_integer_value(json_object_get(json, "auto_shots")),
-	                    json_integer_value(json_object_get(json, "auto_scores")),
-	                    json_integer_value(json_object_get(json, "auto_goal")),
-	                    json_integer_value(json_object_get(json, "teleop_shots")),
-	                    json_integer_value(json_object_get(json, "teleop_scores")),
-	                    json_integer_value(json_object_get(json, "teleop_goal")),
-	                    json_integer_value(json_object_get(json, "climb_tier")),
+	                    string_to_auto_shot((char *)json_string_value(json_object_get(json, "auto_shot"))),
+	                    yes_no_string_to_boolean((char *)json_string_value(json_object_get(json, "auto_hot"))),
+	                    yes_no_string_to_boolean((char *)json_string_value(json_object_get(json, "auto_mobility"))),
+	                    json_integer_value(json_object_get(json, "high_goals_scored")),
+	                    json_integer_value(json_object_get(json, "high_goals_attempted")),
+	                    json_integer_value(json_object_get(json, "low_goals_scored")),
+	                    json_integer_value(json_object_get(json, "low_goals_attempted")),
+	                    json_integer_value(json_object_get(json, "trusses_scored")),
+	                    json_integer_value(json_object_get(json, "trusses_attempted")),
+	                    json_integer_value(json_object_get(json, "catches_scored")),
+	                    json_integer_value(json_object_get(json, "catches_attempted")),
+	                    json_integer_value(json_object_get(json, "passes_scored")),
+	                    json_integer_value(json_object_get(json, "passes_attempted")),
+	                    json_integer_value(json_object_get(json, "recieves_scored")),
+	                    json_integer_value(json_object_get(json, "recieves_attempted")),
 	                    (char *)json_string_value(json_object_get(json, "notes")));
 
 	return ret;

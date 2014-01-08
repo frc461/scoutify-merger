@@ -20,6 +20,7 @@
 #ifndef FIELDS_H
 #define FIELDS_H
 
+#include <stdbool.h>
 
 typedef enum {
 	POSITION_R1,
@@ -30,8 +31,20 @@ typedef enum {
 	POSITION_B3
 } position_t;
 
+typedef enum {
+	AUTO_SHOT_FAIL,
+	AUTO_SHOT_HIGH,
+	AUTO_SHOT_LOW
+} auto_shot_t;
+
 position_t string_to_position(char *position);
 
 char *position_to_string(int position);
+
+auto_shot_t string_to_auto_shot(char *auto_shot);
+
+char *auto_shot_to_string(int auto_shot);
+
+bool yes_no_string_to_boolean(char *yes_no);
 
 #endif

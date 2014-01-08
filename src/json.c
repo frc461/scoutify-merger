@@ -17,8 +17,22 @@
     along with scoutify-merger.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <stdio.h>
 #include <src/database.h>
 #include <src/json.h>
+
+bool json_boolean_value(json_t *object)
+{	bool ret;
+
+	if json_is_true(object) ret = true;
+	else if json_is_false(object) ret = false;
+	else {
+		fprintf(stderr, "ERROR: json value %s is not a boolean", json_dumps(object, 0));
+		ret = false;
+	}
+
+	return ret;
+}
 
 json_t *make_json_from_db()
 {   json_t *ret;
@@ -42,14 +56,22 @@ json_t *make_json_from_db()
 			match = json_object();
 
 			json_object_set(match, "position_num", json_integer(database_get_nth_element(i)->matches[j]->position));
-			json_object_set(match, "auto_shots", json_integer(database_get_nth_element(i)->matches[j]->auto_shots));
-			json_object_set(match, "auto_scores", json_integer(database_get_nth_element(i)->matches[j]->auto_scores));
-			json_object_set(match, "auto_goal", json_integer(database_get_nth_element(i)->matches[j]->auto_goal));
-			json_object_set(match, "teleop_shots", json_integer(database_get_nth_element(i)->matches[j]->teleop_shots));
-			json_object_set(match, "teleop_scores", json_integer(database_get_nth_element(i)->matches[j]->teleop_scores));
-			json_object_set(match, "teleop_goal", json_integer(database_get_nth_element(i)->matches[j]->teleop_goal));
-			json_object_set(match, "climb_tier", json_integer(database_get_nth_element(i)->matches[j]->climb_tier));
 			json_object_set(match, "round", json_string(database_get_nth_element(i)->matches[j]->round));
+			json_object_set(match, "auto_shot", json_integer(database_get_nth_element(i)->matches[j]->auto_shot));
+			json_object_set(match, "auto_hot", json_boolean(database_get_nth_element(i)->matches[j]->auto_hot));
+			json_object_set(match, "auto_mobility", json_boolean(database_get_nth_element(i)->matches[j]->auto_mobility));
+			json_object_set(match, "high_goals_scored", json_integer(database_get_nth_element(i)->matches[j]->high_goals_scored));
+			json_object_set(match, "high_goals_attempted", json_integer(database_get_nth_element(i)->matches[j]->high_goals_attempted));
+			json_object_set(match, "low_goals_scored", json_integer(database_get_nth_element(i)->matches[j]->low_goals_scored));
+			json_object_set(match, "low_goals_attempted", json_integer(database_get_nth_element(i)->matches[j]->low_goals_attempted));
+			json_object_set(match, "trusses_scored", json_integer(database_get_nth_element(i)->matches[j]->trusses_scored));
+			json_object_set(match, "trusses_attempted", json_integer(database_get_nth_element(i)->matches[j]->trusses_attempted));
+			json_object_set(match, "catches_scored", json_integer(database_get_nth_element(i)->matches[j]->catches_scored));
+			json_object_set(match, "catches_attempted", json_integer(database_get_nth_element(i)->matches[j]->catches_attempted));
+			json_object_set(match, "passes_scored", json_integer(database_get_nth_element(i)->matches[j]->passes_scored));
+			json_object_set(match, "passes_attempted", json_integer(database_get_nth_element(i)->matches[j]->passes_attempted));
+			json_object_set(match, "recieves_scored", json_integer(database_get_nth_element(i)->matches[j]->recieves_scored));
+			json_object_set(match, "recieves_attempted", json_integer(database_get_nth_element(i)->matches[j]->recieves_attempted));
 			json_object_set(match, "notes", json_string(database_get_nth_element(i)->matches[j]->notes));
 
 			json_array_append(matches, match);
@@ -77,16 +99,22 @@ int populate_db_from_json(json_t *json)
 
 			matches[j] = match_new_from_data(json_integer_value(json_object_get(match, "position_num")),
 			                                 (char *)json_string_value(json_object_get(match, "round")),
-			                                 json_integer_value(json_object_get(match, "auto_shots")),
-			                                 json_integer_value(json_object_get(match, "auto_scores")),
-			                                 json_integer_value(json_object_get(match, "auto_goal")),
-			                                 json_integer_value(json_object_get(match, "teleop_shots")),
-			                                 json_integer_value(json_object_get(match, "teleop_scores")),
-			                                 json_integer_value(json_object_get(match, "teleop_goal")),
-			                                 json_integer_value(json_object_get(match, "climb_tier")),
+			                                 json_integer_value(json_object_get(match, "auto_shot")),
+			                                 json_boolean_value(json_object_get(match, "auto_hot")),
+			                                 json_boolean_value(json_object_get(match, "auto_mobility")),
+			                                 json_integer_value(json_object_get(match, "high_goals_scored")),
+			                                 json_integer_value(json_object_get(match, "high_goals_attempted")),
+			                                 json_integer_value(json_object_get(match, "low_goals_scored")),
+			                                 json_integer_value(json_object_get(match, "low_goals_attempted")),
+			                                 json_integer_value(json_object_get(match, "trusses_scored")),
+			                                 json_integer_value(json_object_get(match, "trusses_attempted")),
+			                                 json_integer_value(json_object_get(match, "catches_scored")),
+			                                 json_integer_value(json_object_get(match, "catches_attempted")),
+			                                 json_integer_value(json_object_get(match, "passes_scored")),
+			                                 json_integer_value(json_object_get(match, "passes_attempted")),
+			                                 json_integer_value(json_object_get(match, "recieves_scored")),
+			                                 json_integer_value(json_object_get(match, "recieves_attempted")),
 			                                 (char *)json_string_value(json_object_get(match, "notes")));
-			// printf("loaded match j=%i round=\"%s\"\n", j, matches[j]->round);
-			// print_match(matches[j]);
 		}
 
 		database_add_team(team_new_from_data_sorted(json_integer_value(json_object_get(team, "number")),

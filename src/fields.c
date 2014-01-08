@@ -19,6 +19,7 @@
 
 #include <string.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 #include <src/fields.h>
 
@@ -65,6 +66,55 @@ char *position_to_string(int position)
 		fprintf(stderr, "ERROR: Position integer not recognized: %u\n", position);
 		ret = "";
 		break;
+	}
+
+	return ret;
+}
+
+auto_shot_t string_to_auto_shot(char *auto_shot)
+{	auto_shot_t ret;
+
+	if(!strcmp(auto_shot, "Fail")) ret = AUTO_SHOT_FAIL;
+	else if(!strcmp(auto_shot, "High")) ret = AUTO_SHOT_HIGH;
+	else if(!strcmp(auto_shot, "Low")) ret = AUTO_SHOT_LOW;
+	else {
+		fprintf(stderr, "ERROR: Auto shot string not recognized: %s\n", auto_shot);
+		ret = 0;
+	}
+
+	return ret;
+}
+
+char *auto_shot_to_string(int auto_shot)
+{	char *ret;
+
+	switch(auto_shot) {
+	case AUTO_SHOT_FAIL:
+		ret = "Fail";
+		break;
+	case AUTO_SHOT_HIGH:
+		ret = "High";
+		break;
+	case AUTO_SHOT_LOW:
+		ret = "Low";
+		break;
+	default:
+		fprintf(stderr, "ERROR: Auto shot integer not recognized: %u\n", auto_shot);
+		ret = "";
+		break;
+	}
+
+	return ret;
+}
+
+bool yes_no_string_to_boolean(char *yes_no)
+{	char *ret;
+
+	if(!strcmp(yes_no, "Yes")) ret = true;
+	else if(!strcmp(yes_no, "No")) ret = false;
+	else {
+		fprintf(stderr, "ERROR: string is not \"yes\" or \"no\": %s\n", yes_no);
+		ret = -1;
 	}
 
 	return ret;
