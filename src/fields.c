@@ -108,7 +108,7 @@ char *auto_shot_to_string(int auto_shot)
 }
 
 bool yes_no_string_to_boolean(char *yes_no)
-{	char *ret;
+{	bool ret;
 
 	if(!strcmp(yes_no, "Yes")) ret = true;
 	else if(!strcmp(yes_no, "No")) ret = false;
