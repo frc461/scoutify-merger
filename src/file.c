@@ -55,8 +55,8 @@ match_t *load_match_file(char *path, char *team)
 	                    json_integer_value(json_object_get(json, "catches_attempted")),
 	                    json_integer_value(json_object_get(json, "passes_scored")),
 	                    json_integer_value(json_object_get(json, "passes_attempted")),
-	                    json_integer_value(json_object_get(json, "recieves_scored")),
-	                    json_integer_value(json_object_get(json, "recieves_attempted")),
+	                    json_integer_value(json_object_get(json, "receives_scored")),
+	                    json_integer_value(json_object_get(json, "receives_attempted")),
 	                    (char *)json_string_value(json_object_get(json, "notes")));
 
 	return ret;

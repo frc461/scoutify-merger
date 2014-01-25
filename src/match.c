@@ -45,8 +45,8 @@ match_t *match_new_from_data(position_t position,
                              int catches_attempted,
                              int passes_scored,
                              int passes_attempted,
-                             int recieves_scored,
-                             int recieves_attempted,
+                             int receives_scored,
+                             int receives_attempted,
                              char notes[4096])
 { match_t *ret = match_new();
 
@@ -67,8 +67,8 @@ match_t *match_new_from_data(position_t position,
 	ret->catches_attempted = catches_attempted;
 	ret->passes_scored = passes_scored;
 	ret->passes_attempted = passes_attempted;
-	ret->recieves_scored = recieves_scored;
-	ret->recieves_attempted = recieves_attempted;
+	ret->receives_scored = receives_scored;
+	ret->receives_attempted = receives_attempted;
 	strcpy(ret->notes, notes);
 
 	return ret;
@@ -90,8 +90,8 @@ int match_set_from_data(match_t *in,
                         int catches_attempted,
                         int passes_scored,
                         int passes_attempted,
-                        int recieves_scored,
-                        int recieves_attempted,
+                        int receives_scored,
+                        int receives_attempted,
                         char notes[4096])
 {
 	in->position = position;
@@ -109,8 +109,8 @@ int match_set_from_data(match_t *in,
 	in->catches_attempted = catches_attempted;
 	in->passes_scored = passes_scored;
 	in->passes_attempted = passes_attempted;
-	in->recieves_scored = recieves_scored;
-	in->recieves_attempted = recieves_attempted;
+	in->receives_scored = receives_scored;
+	in->receives_attempted = receives_attempted;
 	strcpy(in->notes, notes);
 
 	return 0;
@@ -135,8 +135,8 @@ int print_match(match_t *match)
 	printf("catches_attempted: %u\n", match->catches_attempted);
 	printf("passes_scored: %u\n", match->passes_scored);
 	printf("passes_attempted: %u\n", match->passes_attempted);
-	printf("recieves_scored: %u\n", match->recieves_scored);
-	printf("recieves_attempted: %u\n", match->recieves_attempted);
+	printf("receives_scored: %u\n", match->receives_scored);
+	printf("receives_attempted: %u\n", match->receives_attempted);
 	printf("notes: %s\n", match->notes);
 
 }
