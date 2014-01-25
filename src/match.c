@@ -47,6 +47,8 @@ match_t *match_new_from_data(position_t position,
                              int passes_attempted,
                              int receives_scored,
                              int receives_attempted,
+                             int blocks_scored,
+                             int blocks_attempted,
                              char notes[4096])
 { match_t *ret = match_new();
 
@@ -69,6 +71,8 @@ match_t *match_new_from_data(position_t position,
 	ret->passes_attempted = passes_attempted;
 	ret->receives_scored = receives_scored;
 	ret->receives_attempted = receives_attempted;
+	ret->blocks_scored = blocks_scored;
+	ret->blocks_attempted = blocks_attempted;
 	strcpy(ret->notes, notes);
 
 	return ret;
@@ -92,6 +96,8 @@ int match_set_from_data(match_t *in,
                         int passes_attempted,
                         int receives_scored,
                         int receives_attempted,
+                        int blocks_scored,
+                        int blocks_attempted,
                         char notes[4096])
 {
 	in->position = position;
@@ -111,6 +117,8 @@ int match_set_from_data(match_t *in,
 	in->passes_attempted = passes_attempted;
 	in->receives_scored = receives_scored;
 	in->receives_attempted = receives_attempted;
+	in->blocks_scored = blocks_scored;
+	in->blocks_attempted = blocks_attempted;
 	strcpy(in->notes, notes);
 
 	return 0;
@@ -137,6 +145,8 @@ int print_match(match_t *match)
 	printf("passes_attempted: %u\n", match->passes_attempted);
 	printf("receives_scored: %u\n", match->receives_scored);
 	printf("receives_attempted: %u\n", match->receives_attempted);
+	printf("blocks_scored: %u\n", match->blocks_scored);
+	printf("blocks_attempted: %u\n", match->blocks_attempted);
 	printf("notes: %s\n", match->notes);
 
 }

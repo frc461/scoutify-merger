@@ -72,6 +72,8 @@ json_t *make_json_from_db()
 			json_object_set(match, "passes_attempted", json_integer(database_get_nth_element(i)->matches[j]->passes_attempted));
 			json_object_set(match, "receives_scored", json_integer(database_get_nth_element(i)->matches[j]->receives_scored));
 			json_object_set(match, "receives_attempted", json_integer(database_get_nth_element(i)->matches[j]->receives_attempted));
+			json_object_set(match, "blocks_scored", json_integer(database_get_nth_element(i)->matches[j]->blocks_scored));
+			json_object_set(match, "blocks_attempted", json_integer(database_get_nth_element(i)->matches[j]->blocks_attempted));
 			json_object_set(match, "notes", json_string(database_get_nth_element(i)->matches[j]->notes));
 
 			json_array_append(matches, match);
@@ -114,6 +116,8 @@ int populate_db_from_json(json_t *json)
 			                                 json_integer_value(json_object_get(match, "passes_attempted")),
 			                                 json_integer_value(json_object_get(match, "receives_scored")),
 			                                 json_integer_value(json_object_get(match, "receives_attempted")),
+			                                 json_integer_value(json_object_get(match, "blocks_scored")),
+			                                 json_integer_value(json_object_get(match, "blocks_attempted")),
 			                                 (char *)json_string_value(json_object_get(match, "notes")));
 		}
 

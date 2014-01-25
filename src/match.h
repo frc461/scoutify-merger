@@ -46,6 +46,8 @@ typedef struct match {
 	int passes_attempted;
 	int receives_scored;
 	int receives_attempted;
+	int blocks_scored;
+	int blocks_attempted;
 
 	char notes[4096];
 } match_t;
@@ -68,6 +70,8 @@ match_t *match_new_from_data(position_t position,
                              int passes_attempted,
                              int receives_scored,
                              int receives_attempted,
+                             int blocks_scored,
+                             int blocks_attempted,
                              char notes[4096]);
 int match_set_from_data(match_t *in,
                         position_t position,
@@ -87,6 +91,8 @@ int match_set_from_data(match_t *in,
                         int passes_attempted,
                         int receives_scored,
                         int receives_attempted,
+                        int blocks_scored,
+                        int blocks_attempted,
                         char notes[4096]);
 int match_free();
 
