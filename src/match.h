@@ -98,4 +98,6 @@ int match_free();
 
 int print_match(match_t *match);
 
+int match_get_team_score(match_t *match);
+
 #endif

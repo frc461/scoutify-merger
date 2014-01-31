@@ -24,8 +24,10 @@
 #include <src/match.h>
 
 /* Simply creates, allocates, and returns an empty match structure (pointers inside may not be initialized!) */
-match_t *match_new(){
-match_t *ret = malloc(sizeof(match_t));
+match_t *match_new()
+{
+	match_t *ret = malloc(sizeof(match_t));
+
 	return ret;
 }
 
@@ -51,9 +53,8 @@ match_t *match_new_from_data(position_t position,
                              int blocks_attempted,
                              char notes[4096])
 { match_t *ret = match_new();
-
 	/* TODO: add validations, perhaps detect if stuff isn't allocated and call functions to allocate it [matches ptr] */
-	
+
 	ret->position = position;
 	strcpy(ret->round, round);
 	ret->auto_shot = auto_shot;
@@ -149,4 +150,44 @@ int print_match(match_t *match)
 	printf("blocks_attempted: %u\n", match->blocks_attempted);
 	printf("notes: %s\n", match->notes);
 
+	return 0;
+}
+
+int match_get_team_score(match_t *match)
+{
+	int score = 0;
+
+	/* Autonomous calculations */
+	if(match->auto_shot != AUTO_SHOT_FAIL) { /* If some shot was made during autonomous (we assume that there's only one) */
+		/* 5 points for autonomous */
+		score += 5;
+
+		/* If we shot into the hot goal */
+		if(match->auto_hot) {
+			/* Another 5 points :D */
+			score += 5;
+		}
+
+		if(match->auto_shot == AUTO_SHOT_HIGH) { /* If high, add 10 */
+			score += 10;
+		} else if(match->auto_shot == AUTO_SHOT_LOW) { /* If low, add 1 */
+			score += 1;
+		}
+	}
+
+	/* 5 Points for auto mobility */
+	if(match->auto_mobility)
+		score += 5;
+
+	/* 10 Points for each truss scored */
+	score += match->trusses_scored * 10;
+
+	/* 10 Points for each catch */
+	score += match->catches_scored * 10;
+
+	/* Generic goals */
+	score += match->high_goals_scored * 10;
+	score += match->low_goals_scored * 1;
+
+	return score;
 }

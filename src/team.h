@@ -27,6 +27,8 @@ typedef struct team {
 	char name[128];
 	int value;
 
+	double average_score;
+
 	match_t **matches;
 	unsigned int num_matches;
 } team_t;

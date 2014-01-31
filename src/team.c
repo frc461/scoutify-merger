@@ -34,7 +34,7 @@ team_t *team_new()
 team_t *team_new_from_data(unsigned int number, char name[128], match_t **matches, unsigned int num_matches)
 { team_t *ret = team_new();
 	team_set_from_data(ret, number, name, matches, num_matches);
-	
+
 	return ret;
 }
 
@@ -55,6 +55,18 @@ int team_set_from_data(team_t *in, unsigned int number, char name[128], match_t 
 	strcpy(in->name, name);
 	in->matches = matches;
 	in->num_matches = num_matches;
+
+	double average_score = 0.0;
+
+	int total_scored_in_comp = 0;
+
+	unsigned int mn = 0;
+
+	for(match_t *match = matches[0]; mn < in->num_matches; mn += 1) {
+		total_scored_in_comp += match_get_team_score(matches[mn]);
+	}
+
+	in->average_score = total_scored_in_comp / in->num_matches;
 
 	return 0;
 }
