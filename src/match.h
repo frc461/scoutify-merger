@@ -94,6 +94,7 @@ int match_set_from_data(match_t *in,
                         int blocks_scored,
                         int blocks_attempted,
                         char notes[4096]);
+
 int match_free();
 
 int print_match(match_t *match);

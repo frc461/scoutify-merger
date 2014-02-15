@@ -35,7 +35,7 @@ bool json_boolean_value(json_t *object)
 }
 
 json_t *make_json_from_db()
-{   json_t *ret;
+{	json_t *ret;
 	ret = json_array();
 
 	for(int i = 0; database_get_nth_element(i); i++) {
@@ -75,6 +75,7 @@ json_t *make_json_from_db()
 			json_object_set(match, "blocks_scored", json_integer(database_get_nth_element(i)->matches[j]->blocks_scored));
 			json_object_set(match, "blocks_attempted", json_integer(database_get_nth_element(i)->matches[j]->blocks_attempted));
 			json_object_set(match, "notes", json_string(database_get_nth_element(i)->matches[j]->notes));
+			json_object_set(match, "placing", j + 1);
 
 			json_array_append(matches, match);
 		}
