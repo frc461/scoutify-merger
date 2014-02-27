@@ -16,22 +16,16 @@ PROGRAMFILE=scoutify-merger.$(shell arch)
 all: $(PROGRAMFILE) tags
 
 obj/%.o: src/%.c $(HEADERS)
-	@printf "\033[32mCOMPILE\033[0m %8s\033[31m\n" "$<"
-	@$(COMPILER) -c -o $@ $< $(COMPILEFLAGS) -fPIC
-	@printf "\033[0m"
+	$(COMPILER) -c -o $@ $< $(COMPILEFLAGS) -fPIC
 $(PROGRAMFILE): $(PROGRAMOBJECTS)
-	@printf "\033[34mLINK_TO\033[0m %8s\033[31m\n" "$@"
-	@$(COMPILER) -o $(PROGRAMFILE) $(PROGRAMOBJECTS) $(LINKFLAGS)
-	@printf "\033[0m"
+	$(COMPILER) -o $(PROGRAMFILE) $(PROGRAMOBJECTS) $(LINKFLAGS)
 
 clean:
-	@rm -f obj/*
-	@rm -f bin/*
-	@rm -f src/TAGS
-	@printf "\033[31mCLEANED\033[0m\n"
+	rm -f obj/*
+	rm -f bin/*
+	rm -f src/TAGS
 
 tags: src/TAGS
 
 src/TAGS: $(wildcard src/*.c) $(HEADERS)
-	@printf "\033[33mTAGGIFY\033[0m %s\n" "$(wildcard src/*.c) $(HEADERS)"
-	@etags src/*.c src/*.h -o src/TAGS
+	etags src/*.c src/*.h -o src/TAGS
