@@ -46,6 +46,7 @@ json_t *make_json_from_db()
 		json_object_set(team, "number", json_integer(database_get_nth_element(i)->number));
 		json_object_set(team, "name", json_string(database_get_nth_element(i)->name));
 		json_object_set(team, "value", json_integer(database_get_nth_element(i)->value));
+		json_object_set(team, "placing", json_integer(i + 1));
 
 		json_t *matches;
 		matches = json_array();
@@ -75,7 +76,6 @@ json_t *make_json_from_db()
 			json_object_set(match, "blocks_scored", json_integer(database_get_nth_element(i)->matches[j]->blocks_scored));
 			json_object_set(match, "blocks_attempted", json_integer(database_get_nth_element(i)->matches[j]->blocks_attempted));
 			json_object_set(match, "notes", json_string(database_get_nth_element(i)->matches[j]->notes));
-			json_object_set(match, "placing", json_integer(j + 1));
 
 			json_array_append(matches, match);
 		}
