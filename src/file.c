@@ -29,13 +29,15 @@ match_t *load_match_file(char *path, char *team)
 	json = json_load_file(path, 0, &error);
 	if(!json) {
 		fprintf(stderr, "ERROR: %s\n", error.text);
+
 		return NULL;
 	}
-	
+
 	if(team && (atoi(team) != json_integer_value(json_object_get(json, "team")))) {
-		fprintf(stderr, "ERROR: Teams do not match. (\"%s\" and \"%u\")\n",
+		fprintf(stderr, "ERROR: Teams do not match. (\"%s\" and \"%lli\")\n",
 		        team,
 		        json_integer_value(json_object_get(json, "team")));
+
 		return NULL;
 	}
 
@@ -126,7 +128,7 @@ int load_dot_scoutify(char *dsf_path)
 			strcpy(fullpath, dsf_path);
 			strcat(fullpath, "/");
 			strcat(fullpath, file.name);
-			
+
 			if(team = load_team_dir(fullpath, file.name)) { /* make sure there were matches */
 				database_add_team(team); /* add to db */
 				i++;
@@ -174,16 +176,16 @@ int dump_database_to_csv_file(char *opath)
 		fprintf(stderr, "OH NOES, DUMPFILE [%s] IS NULL!\n", opath);
 		return 1;
 	}
-	
+
 	team_t *curteam;
 
 	/* print the column headers to the CSV file */
 	fprintf(file, "\"dbindex\", \"number\", \"value\", \"name\"\n");
-	
+
 	for(int i = 0; curteam = database_get_nth_element(i); i += 1) {
 		fprintf(file, "\"%d\", \"%u\", \"%d\", \"%s\"\n", i, curteam->number, curteam->value, curteam->name);
 	}
-	
+
 	fclose(file);
 	return 0;
 }

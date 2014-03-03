@@ -35,7 +35,7 @@ argument_t *_argument_new_from_data_(int argc, char *argv)
 { argument_t *ret = _argument_new_();
 
 	_argument_set_data_(ret, argc, argv);
-	
+
 	return ret;
 }
 
@@ -43,7 +43,7 @@ argument_t *_argument_new_from_data_after_argument_(int argc, char *argv, argume
 { argument_t *ret = _argument_new_from_data_(argc, argv);
 
 	_argument_insert_after_argument_(argument, ret);
-	
+
 	return ret;
 }
 
@@ -61,7 +61,7 @@ void _argument_insert_after_argument_(argument_t *argument, argument_t *to_inser
 			 */
 			printf("insertion detected previous next @0x%x w/ parent @0x%x\n", argument->next, argument);
 			printf("%4s(we'll make a copy and then insert that as the next of the insertion)\n", "");
-			
+
 			/* Make a copy of the previous 'next' member */
 			argument_t *previous_next = argument->next;
 			/* Then insert the given argument pointer. */
@@ -89,7 +89,7 @@ argument_t *_argument_get_last_argument_in_system_list_()
 
 	if(i == NULL)
 		return i;
-	
+
 	while(i->next != NULL)
 		i = i->next;
 
@@ -100,7 +100,7 @@ void argument_build_system_list_from_arguments(int argc, char *argv[])
 {
 	/* We always should have argv[0], at the least */
 	_root_argument_ = _argument_new_from_data_(0, argv[0]);
-	
+
 	for(int i = 1; i < argc; i += 1) {
 		argument_t *new = _argument_new_from_data_after_argument_(i, argv[i], _argument_get_last_argument_in_system_list_());
 	}
@@ -111,15 +111,15 @@ void argument_debug_system_list()
 
 	printf("DEBUG ARGLIST:\n");
 	argument_t *i = _root_argument_;
-	
+
 	while(i != NULL) {
 		printf("%4si => { %d [@ 0x%x] \"%s\" }\n", "", i->index, i, i->value);
 		i = i->next;
 	}
 
 	argument_t *last = _argument_get_last_argument_in_system_list_();
-	
 	printf("%8slast dtctd == { %d [@0x%x] \"%s\" }\n", "", last->index, last, last->value);
+
 }
 
 int argument_get_number_of_elements_in_system_list()
@@ -182,7 +182,7 @@ argument_t **argument_get_array_of_argument_pointers_from_system_list()
 		counter += 1;
 		i = i->next;
 	}
-	
+
 	return ret;
 }
 
@@ -192,6 +192,6 @@ char **argument_get_argument_values_from_system_list()
 	for(int i = 1; i < argument_get_number_of_elements_in_system_list(); i += 1) {
 		ret[i - 1] = argument_system_list_get_nth_element(i)->value;
 	}
-	
+
 	return ret;
 }
