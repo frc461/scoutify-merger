@@ -59,7 +59,7 @@ void _argument_insert_after_argument_(argument_t *argument, argument_t *to_inser
 			/* Warn the user (hardly ever happens because the only time this function should
 			 * be called is by the system list generator and it does things nicely and in sequence)
 			 */
-			printf("insertion detected previous next @0x%x w/ parent @0x%x\n", argument->next, argument);
+			printf("insertion detected previous next @0x%p w/ parent @0x%p\n", argument->next, argument);
 			printf("%4s(we'll make a copy and then insert that as the next of the insertion)\n", "");
 
 			/* Make a copy of the previous 'next' member */
@@ -113,13 +113,13 @@ void argument_debug_system_list()
 	argument_t *i = _root_argument_;
 
 	while(i != NULL) {
-		printf("%4si => { %d [@ 0x%x] \"%s\" }\n", "", i->index, i, i->value);
+		printf("%4si => { %d [@ 0x%p] \"%s\" }\n", "", i->index, i, i->value);
 		i = i->next;
 	}
 
 	argument_t *last = _argument_get_last_argument_in_system_list_();
-	printf("%8slast dtctd == { %d [@0x%x] \"%s\" }\n", "", last->index, last, last->value);
 
+	printf("%8slast dtctd == { %d [@0x%p] \"%s\" }\n", "", last->index, last, last->value);
 }
 
 int argument_get_number_of_elements_in_system_list()
