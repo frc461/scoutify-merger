@@ -185,9 +185,61 @@ int match_get_team_score(match_t *match)
 	/* 10 Points for each catch */
 	score += match->catches_scored * 10;
 
+	/* 5 Points for each pass or recieve */
+	score += match->receives_scored * 5;
+	score += match->passes_scored * 5;
+
 	/* Generic goals */
 	score += match->high_goals_scored * 10;
 	score += match->low_goals_scored * 1;
+
+	return score;
+}
+
+int match_get_team_value(match_t *match)
+{
+	int score = 0;
+
+	int auton = 0;
+
+	/* Autonomous calculations */
+	if(match->auto_shot != AUTO_SHOT_FAIL) { /* If some shot was made during autonomous (we assume that there's only one) */
+		/* 5 points for autonomous */
+		auton += 5;
+
+		/* If we shot into the hot goal */
+		if(match->auto_hot) {
+			/* Another 5 points :D */
+			auton += 5;
+		}
+
+		if(match->auto_shot == AUTO_SHOT_HIGH) { /* If high, add 10 */
+			auton += 10;
+		} else if(match->auto_shot == AUTO_SHOT_LOW) { /* If low, add 1 */
+			auton += 1;
+		}
+	}
+
+	/* 5 Points for auto mobility */
+	if(match->auto_mobility)
+		auton += 5;
+
+	/* Weight auton and add to score */
+	score += auton * AUTON_WEIGHT;
+
+	/* 10 Points for each truss scored */
+	score += match->trusses_scored * 10 * TRUSS_WEIGHT;
+
+	/* 10 Points for each catch */
+	score += match->catches_scored * 10 * CATCH_WEIGHT;
+
+	/* 5 Points for each pass or recieve */
+	score += match->receives_scored * 5 * ASSIST_WEIGHT;
+	score += match->passes_scored * 5 * ASSIST_WEIGHT;
+
+	/* Generic goals */
+	score += match->high_goals_scored * 10 * HIGH_WEIGHT;
+	score += match->low_goals_scored * 1 * LOW_WEIGHT;
 
 	return score;
 }

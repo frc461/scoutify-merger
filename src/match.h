@@ -22,6 +22,13 @@
 
 #include <src/fields.h>
 
+#define  AUTON_WEIGHT 1.3
+#define  TRUSS_WEIGHT 0.8
+#define  CATCH_WEIGHT 2.0
+#define ASSIST_WEIGHT 1.5
+#define   HIGH_WEIGHT 0.7
+#define    LOW_WEIGHT 2.0
+
 typedef struct match {
 	/* team is implied because the match should be withing a team struct */
 	position_t position;
@@ -100,5 +107,6 @@ int match_free();
 int print_match(match_t *match);
 
 int match_get_team_score(match_t *match);
+int match_get_team_value(match_t *match);
 
 #endif
