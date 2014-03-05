@@ -76,6 +76,8 @@ json_t *make_json_from_db()
 			json_object_set(match, "blocks_scored", json_integer(database_get_nth_element(i)->matches[j]->blocks_scored));
 			json_object_set(match, "blocks_attempted", json_integer(database_get_nth_element(i)->matches[j]->blocks_attempted));
 			json_object_set(match, "notes", json_string(database_get_nth_element(i)->matches[j]->notes));
+			json_object_set(match, "score", json_integer(match_get_team_score(database_get_nth_element(i)->matches[j])));
+			json_object_set(match, "value", json_real(match_get_team_value(database_get_nth_element(i)->matches[j])));
 
 			json_array_append(matches, match);
 		}

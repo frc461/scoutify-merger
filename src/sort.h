@@ -22,7 +22,7 @@
 
 #include <src/database.h>
 
-int find_value(team_t *team);
+double find_value(team_t *team);
 
 int set_sort_value(team_t *team);
 

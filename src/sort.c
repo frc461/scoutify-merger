@@ -23,14 +23,12 @@
 #include <src/sort.h>
 #include <src/match.h>
 
-int find_value(team_t *team)
+double find_value(team_t *team)
 {	double ret;
-
-	unsigned int mn = 0;
 
 	double total_value_in_comp = 0.0;
 
-	for(match_t *match = team->matches[0]; mn < team->num_matches; mn += 1) {
+	for(unsigned int mn = 0; mn < team->num_matches; mn += 1) {
 		total_value_in_comp += match_get_team_value(team->matches[mn]);
 	}
 
