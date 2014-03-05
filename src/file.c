@@ -181,7 +181,7 @@ int dump_database_to_csv_file(char *opath)
 	fprintf(file, "\"dbindex\", \"number\", \"value\", \"name\"\n");
 	
 	for(int i = 0; curteam = database_get_nth_element(i); i += 1) {
-		fprintf(file, "\"%d\", \"%u\", \"%d\", \"%s\"\n", i, curteam->number, curteam->value, curteam->name);
+		fprintf(file, "\"%d\", \"%u\", \"%f\", \"%s\"\n", i, curteam->number, curteam->value, curteam->name);
 	}
 	
 	fclose(file);

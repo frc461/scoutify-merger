@@ -45,7 +45,7 @@ json_t *make_json_from_db()
 
 		json_object_set(team, "number", json_integer(database_get_nth_element(i)->number));
 		json_object_set(team, "name", json_string(database_get_nth_element(i)->name));
-		json_object_set(team, "value", json_integer(database_get_nth_element(i)->value));
+		json_object_set(team, "value", json_real(database_get_nth_element(i)->value));
 
 		json_t *matches;
 		matches = json_array();
@@ -126,7 +126,7 @@ int populate_db_from_json(json_t *json)
 		                                            (char *)json_string_value(json_object_get(team, "name")),
 		                                            matches,
 		                                            (unsigned int)j,
-		                                            json_integer_value(json_object_get(team, "value"))));
+		                                            json_real_value(json_object_get(team, "value"))));
 	}
 
 	return 0;
