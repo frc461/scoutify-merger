@@ -16,7 +16,7 @@ PROGRAMFILE=scoutify-merger.$(shell arch)
 all: $(PROGRAMFILE) tags
 
 obj/%.o: src/%.c $(HEADERS)
-	$(COMPILER) -c -o $@ $< $(COMPILEFLAGS) -fPIC
+	$(COMPILER) -c -o $@ $< $(COMPILEFLAGS)
 $(PROGRAMFILE): $(PROGRAMOBJECTS)
 	$(COMPILER) -o $(PROGRAMFILE) $(PROGRAMOBJECTS) $(LINKFLAGS)
 
