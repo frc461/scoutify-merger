@@ -56,8 +56,6 @@ int team_set_from_data(team_t *in, unsigned int number, char name[128], match_t 
 	in->matches = matches;
 	in->num_matches = num_matches;
 
-	double average_score = 0.0;
-
 	int total_scored_in_comp = 0;
 
 	unsigned int mn = 0;
