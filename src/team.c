@@ -25,7 +25,7 @@
 /* Simply creates, allocates, and returns an empty team structure (pointers inside may not be initialized!) */
 
 team_t *team_new()
-{ team_t *ret = malloc(sizeof(team_t));
+{	team_t *ret = malloc(sizeof(team_t));
 	return ret;
 }
 

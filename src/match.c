@@ -51,7 +51,7 @@ match_t *match_new_from_data(position_t position,
                              int receives_attempted,
                              int blocks_scored,
                              int blocks_attempted,
-                             char notes[4096])
+                             char notes[65536])
 { match_t *ret = match_new();
 	/* TODO: add validations, perhaps detect if stuff isn't allocated and call functions to allocate it [matches ptr] */
 
@@ -99,7 +99,7 @@ int match_set_from_data(match_t *in,
                         int receives_attempted,
                         int blocks_scored,
                         int blocks_attempted,
-                        char notes[4096])
+                        char notes[65536])
 {
 	in->position = position;
 	strcpy(in->round, round);

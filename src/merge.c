@@ -82,7 +82,7 @@ int merge_matches(team_t *team)
 				}
 
 				if(strcmp(team->matches[i]->notes, team->matches[i+j]->notes)) {
-					char new_notes[256];
+					char new_notes[65536];
 					printf("Merge conflict in notes, concatenating.\n");
 					strcpy(new_notes, team->matches[i]->notes);
 					strcat(new_notes, "\n");
