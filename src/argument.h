@@ -22,27 +22,27 @@
 
 #include <stdbool.h>
 
-typedef struct argument {
+struct argument_t {
 	char *value;
 	int index;
-	
-	struct argument *next;
-} argument_t;
 
-extern argument_t *_root_argument_;
+	struct argument_t *next;
+};
 
-argument_t *_argument_new_();
-argument_t *_argument_new_from_data_(int argc, char *argv);
-argument_t *_argument_new_from_data_after_argument_(int argc, char *argv, argument_t *argument);
+extern struct argument_t *_root_argument_;
 
-void _argument_set_data_(argument_t *argument, int index, char *value);
+struct argument_t *_argument_new_();
+struct argument_t *_argument_new_from_data_(int argc, char *argv);
+struct argument_t *_argument_new_from_data_after_argument_(int argc, char *argv, struct argument_t *argument);
 
-void _argument_insert_after_argument_(argument_t *argument, argument_t *to_insert);
+void _argument_set_data_(struct argument_t *argument, int index, char *value);
+
+void _argument_insert_after_argument_(struct argument_t *argument, struct argument_t *to_insert);
 void argument_build_system_list_from_arguments(int argc, char *argv[]);
 
-argument_t *_argument_get_last_argument_in_system_list_();
-argument_t *argument_system_list_get_nth_element(int n);
-argument_t **argument_get_array_of_argument_pointers_from_system_list();
+struct argument_t *_argument_get_last_argument_in_system_list_();
+struct argument_t *argument_system_list_get_nth_element(int n);
+struct argument_t **argument_get_array_of_argument_pointers_from_system_list();
 int argument_get_number_of_elements_in_system_list();
 void argument_debug_system_list();
 

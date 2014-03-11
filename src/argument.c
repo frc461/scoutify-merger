@@ -24,30 +24,34 @@
 
 #include <src/argument.h>
 
-argument_t *_root_argument_ = NULL;
+struct argument_t *_root_argument_ = NULL;
 
-argument_t *_argument_new_()
-{ argument_t *ret = malloc(sizeof(argument_t));
-	return ret;
+struct argument_t *_argument_new_()
+{
+	struct argument_t *argument = malloc(sizeof(struct argument_t));
+
+	return argument;
 }
 
-argument_t *_argument_new_from_data_(int argc, char *argv)
-{ argument_t *ret = _argument_new_();
+struct argument_t *_argument_new_from_data_(int argc, char *argv)
+{
+	struct argument_t *argument = _argument_new_();
 
-	_argument_set_data_(ret, argc, argv);
+	_argument_set_data_(argument, argc, argv);
 
-	return ret;
+	return argument;
 }
 
-argument_t *_argument_new_from_data_after_argument_(int argc, char *argv, argument_t *argument)
-{ argument_t *ret = _argument_new_from_data_(argc, argv);
+struct argument_t *_argument_new_from_data_after_argument_(int argc, char *argv, struct argument_t *parent)
+{
+	struct argument_t *argument = _argument_new_from_data_(argc, argv);
 
-	_argument_insert_after_argument_(argument, ret);
+	_argument_insert_after_argument_(parent, argument);
 
-	return ret;
+	return argument;
 }
 
-void _argument_insert_after_argument_(argument_t *argument, argument_t *to_insert)
+void _argument_insert_after_argument_(struct argument_t *argument, struct argument_t *to_insert)
 {
 	if(argument == NULL) {
 		_root_argument_ = to_insert;
@@ -63,11 +67,14 @@ void _argument_insert_after_argument_(argument_t *argument, argument_t *to_inser
 			printf("%4s(we'll make a copy and then insert that as the next of the insertion)\n", "");
 
 			/* Make a copy of the previous 'next' member */
-			argument_t *previous_next = argument->next;
+			struct argument_t *previous_next = argument->next;
+
 			/* Then insert the given argument pointer. */
 			argument->next = to_insert;
+
 			/* Then set the next of the given argument pointer to be the copy. */
 			argument->next->next = previous_next;
+
 			return;
 		} else {
 			/* Otherwise, just set the next to be the next. */
@@ -77,15 +84,15 @@ void _argument_insert_after_argument_(argument_t *argument, argument_t *to_inser
 
 }
 
-void _argument_set_data_(argument_t *argument, int index, char *value)
+void _argument_set_data_(struct argument_t *argument, int index, char *value)
 {
 	argument->value = value;
 	argument->index = index;
 }
 
-argument_t *_argument_get_last_argument_in_system_list_()
+struct argument_t *_argument_get_last_argument_in_system_list_()
 {
-	argument_t *i = _root_argument_;
+	struct argument_t *i = _root_argument_;
 
 	if(i == NULL)
 		return i;
@@ -102,7 +109,7 @@ void argument_build_system_list_from_arguments(int argc, char *argv[])
 	_root_argument_ = _argument_new_from_data_(0, argv[0]);
 
 	for(int i = 1; i < argc; i += 1) {
-		argument_t *new = _argument_new_from_data_after_argument_(i, argv[i], _argument_get_last_argument_in_system_list_());
+		struct argument_t *new = _argument_new_from_data_after_argument_(i, argv[i], _argument_get_last_argument_in_system_list_());
 	}
 }
 
@@ -110,14 +117,14 @@ void argument_debug_system_list()
 {
 
 	printf("DEBUG ARGLIST:\n");
-	argument_t *i = _root_argument_;
+	struct argument_t *i = _root_argument_;
 
 	while(i != NULL) {
 		printf("%4si => { %d [@ 0x%p] \"%s\" }\n", "", i->index, i, i->value);
 		i = i->next;
 	}
 
-	argument_t *last = _argument_get_last_argument_in_system_list_();
+	struct argument_t *last = _argument_get_last_argument_in_system_list_();
 
 	printf("%8slast dtctd == { %d [@0x%p] \"%s\" }\n", "", last->index, last, last->value);
 }
@@ -125,7 +132,7 @@ void argument_debug_system_list()
 int argument_get_number_of_elements_in_system_list()
 { int ret = 0;
 	/* Get an iterator, preset to the root argument */
-	argument_t *i = _root_argument_;
+	struct argument_t *i = _root_argument_;
 
 	/*  Move the iterator to whatever the iterator's 'next' member is,
 	 * until the iterator becomes null. Increment a counter.
@@ -139,8 +146,8 @@ int argument_get_number_of_elements_in_system_list()
 	return ret;
 }
 
-argument_t *argument_system_list_get_nth_element(int n)
-{ argument_t *argument = _root_argument_;
+struct argument_t *argument_system_list_get_nth_element(int n)
+{ struct argument_t *argument = _root_argument_;
 	/* Counter to count up to n. */
 	int c = 0;
 
@@ -170,11 +177,11 @@ argument_t *argument_system_list_get_nth_element(int n)
 	return argument;
 }
 
-argument_t **argument_get_array_of_argument_pointers_from_system_list()
-{ argument_t **ret = malloc(sizeof(argument_t *) * argument_get_number_of_elements_in_system_list());
+struct argument_t **argument_get_array_of_argument_pointers_from_system_list()
+{ struct argument_t **ret = malloc(sizeof(struct argument_t *) * argument_get_number_of_elements_in_system_list());
 	/* A counter and an iterator. */
 	unsigned int counter = 0;
-	argument_t *i = _root_argument_;
+	struct argument_t *i = _root_argument_;
 
 	/* Iterate through the argument L.L. and generate the array of pointers.*/
 	while(i != NULL) {
