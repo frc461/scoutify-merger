@@ -23,7 +23,7 @@
 #include <src/team.h>
 
 /* UNDER NO CIRUMSTANCE SHOULD YOU DIRECTLY ACCESS THE DATABASE.
- * 
+ *
  * ALWAYS USE THESE ABSTRACTION FUNCTIONS.
  */
 
@@ -33,7 +33,6 @@ team_t **_db_; /* global database (array of teams) */
 extern int _db_end_; /* pointer to end of db */
 
 /* The following are okay for use. */
-
 void database_init();
 
 int database_add_team(team_t *team);
@@ -45,7 +44,6 @@ int database_set_nth_element(int n, team_t *team);
 int database_delete_nth_element(int n);
 
 /* Avoid using the following two functions if at all possible. */
-
 int _database_num_elements_();
 
 team_t **_unrestricted_db_();
