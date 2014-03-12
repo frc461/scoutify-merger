@@ -28,4 +28,4 @@ clean:
 tags: src/TAGS
 
 src/TAGS: $(wildcard src/*.c) $(HEADERS)
-	etags src/*.c src/*.h -o src/TAGS
+	etags $^ -o src/TAGS
