@@ -59,6 +59,7 @@ json_t *make_json_from_db()
 			json_object_set(match, "position_num", json_integer(database_get_nth_element(i)->matches[j]->position));
 			json_object_set(match, "round", json_string(database_get_nth_element(i)->matches[j]->round));
 			json_object_set(match, "auto_shot", json_integer(database_get_nth_element(i)->matches[j]->auto_shot));
+
 			json_object_set(match, "auto_hot", json_boolean(database_get_nth_element(i)->matches[j]->auto_hot));
 			json_object_set(match, "auto_mobility", json_boolean(database_get_nth_element(i)->matches[j]->auto_mobility));
 			json_object_set(match, "high_goals_scored", json_integer(database_get_nth_element(i)->matches[j]->high_goals_scored));

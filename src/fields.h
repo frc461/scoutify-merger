@@ -33,8 +33,10 @@ typedef enum {
 
 typedef enum {
 	AUTO_SHOT_FAIL,
-	AUTO_SHOT_HIGH,
-	AUTO_SHOT_LOW
+	AUTO_SHOT_LOW_1,
+	AUTO_SHOT_HIGH_1,
+	AUTO_SHOT_LOW_2,
+	AUTO_SHOT_HIGH_2
 } auto_shot_t;
 
 position_t string_to_position(char *position);
