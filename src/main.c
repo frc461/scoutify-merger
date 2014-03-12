@@ -33,14 +33,14 @@ int main(int argc, char *argv[])
 	printf("Running tests!\n");
 
 	test_hook_new_add("PRINTER", test_callback_test_print);
-	
+
 	_test_callback_global_data_ = "TEST DATA";
-		
+
 	test_execute_all_hooks();
 
 	return 0;
 #endif
-	
+
 	argument_build_system_list_from_arguments(argc, argv);
 
 	database_init();
@@ -64,6 +64,6 @@ int main(int argc, char *argv[])
 	write_db_to_file("./raw/test.json");
 
 	dump_database_to_csv_file("database.csv");
-	
+
 	return 0;
 }
