@@ -68,7 +68,7 @@ match_t *load_match_file(char *path, char *team)
 
 team_t *load_team_dir(char *dir_path, char *team)
 {	team_t *ret = team_new();
-	match_t **matches = malloc(sizeof(match_t *) * 65536);
+	match_t **matches = malloc(sizeof(match_t *) * 4096);
 	int i = 0;
 	tinydir_dir dir;
 	tinydir_open(&dir, dir_path);
