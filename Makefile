@@ -1,5 +1,4 @@
 COMPILER=gcc
-
 EXTRAFLAGS:=
 
 PROJECTFLAGS:=-ljansson
