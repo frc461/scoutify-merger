@@ -19,6 +19,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #include <src/sort.h>
 #include <src/match.h>
@@ -43,9 +44,44 @@ int set_sort_value(team_t *team)
 	return 0;
 }
 
-int compare(const void *a, const void *b)
+int team_compare(const void *a, const void *b)
 {
 	return (*(const team_t **)b)->value - (*(const team_t **)a)->value;
+}
+
+int match_number_to_sort_value(const char *match_number)
+{	int ret = 0;
+
+	if((match_number[0] == 'p') && (match_number[1] == 'm')) {
+		ret = atoi(&(match_number[2])) - 100;
+	}
+	else if((match_number[0] == 'q') && (match_number[1] == 'm')) {
+		ret = atoi(&(match_number[2]));
+	}
+	else if((match_number[0] == 'q') && (match_number[1] == 'f')) {
+		ret = atoi(&(match_number[4])) + 100;
+	}
+	else if((match_number[0] == 's') && (match_number[1] == 'f')) {
+		ret = atoi(&(match_number[4])) + 200;
+	}
+	else if((match_number[0] == 'f')) {
+		ret = atoi(&(match_number[3])) + 300;
+	}
+
+	printf("%s has value %i\nstrcmpqm = %i\n", match_number, ret, strcmp(match_number, "qm"));
+
+	return ret;
+}
+
+int match_compare(const void *a, const void *b)
+{
+	const match_t *match_a = *(const match_t **)a;
+	const match_t *match_b = *(const match_t **)b;
+
+	int a_sort_value = match_number_to_sort_value(match_a->round);
+	int b_sort_value = match_number_to_sort_value(match_b->round);
+
+	return a_sort_value - b_sort_value;
 }
 
 int database_sort()
@@ -56,7 +92,13 @@ int database_sort()
 	qsort(_unrestricted_db_(),
 	      _database_num_elements_(),
 	      sizeof(team_t *),
-	      compare);
+	      team_compare);
+	for(int i = 0; database_get_nth_element(i); i++) {
+		qsort(database_get_nth_element(i)->matches,
+		      database_get_nth_element(i)->num_matches,
+		      sizeof(match_t *),
+		      match_compare);
+	}
 	return 0;
 }
 
