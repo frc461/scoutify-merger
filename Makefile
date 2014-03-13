@@ -13,7 +13,7 @@ PROGRAMOBJECTS=$(patsubst src/%.c,obj/%.o,$(wildcard src/*.c)) $(patsubst src/%.
 
 PROGRAMFILE=scoutify-merger.$(shell arch)
 
-all: $(PROGRAMFILE) tags
+all: tags $(PROGRAMFILE)
 
 obj/%.o: src/%.c $(HEADERS)
 	$(COMPILER) -c -o $@ $< $(COMPILEFLAGS)
@@ -28,4 +28,4 @@ clean:
 tags: src/TAGS
 
 src/TAGS: $(wildcard src/*.c) $(HEADERS)
-	etags src/*.c src/*.h -o src/TAGS
+	etags $^ -o src/TAGS

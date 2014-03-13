@@ -168,10 +168,14 @@ int match_get_team_score(match_t *match)
 			score += 5;
 		}
 
-		if(match->auto_shot == AUTO_SHOT_HIGH) { /* If high, add 10 */
+		if(match->auto_shot == AUTO_SHOT_HIGH_1) { /* If 1 high, add 10 */
 			score += 10;
-		} else if(match->auto_shot == AUTO_SHOT_LOW) { /* If low, add 1 */
+		} else if(match->auto_shot == AUTO_SHOT_LOW_1) { /* If 1 low, add 1 */
 			score += 1;
+		} else if(match->auto_shot == AUTO_SHOT_HIGH_2) { /* If 2 high, add 20 */
+			score += 20;
+		} else if(match->auto_shot == AUTO_SHOT_LOW_2) { /* If 2 low, add 2 */
+			score += 2;
 		}
 	}
 
@@ -213,10 +217,14 @@ int match_get_team_value(match_t *match)
 			auton += 5;
 		}
 
-		if(match->auto_shot == AUTO_SHOT_HIGH) { /* If high, add 10 */
-			auton += 10;
-		} else if(match->auto_shot == AUTO_SHOT_LOW) { /* If low, add 1 */
-			auton += 1;
+		if(match->auto_shot == AUTO_SHOT_HIGH_1) { /* If 1 high, add 10 */
+			score += 10;
+		} else if(match->auto_shot == AUTO_SHOT_LOW_1) { /* If 1 low, add 1 */
+			score += 1;
+		} else if(match->auto_shot == AUTO_SHOT_HIGH_2) { /* If 2 high, add 20 */
+			score += 20;
+		} else if(match->auto_shot == AUTO_SHOT_LOW_2) { /* If 2 low, add 2 */
+			score += 2;
 		}
 	}
 

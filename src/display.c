@@ -27,6 +27,7 @@
 void database_display()
 {
 	team_t *curteam;
+
 	for(int i = 0; curteam = database_get_nth_element(i); i += 1) {
 		printf("%d: Team %8u with sort-value %8f\n", i, curteam->number, curteam->value);
 	}
@@ -37,6 +38,7 @@ void database_display_table_mode()
 	printf("%-6s | %-16s | %12s | %-32s\n", "", "TEAM NUMBER", "SORT VALUE", "TEAM NAME");
 
 	team_t *curteam;
+
 	for(int i = 0; curteam = database_get_nth_element(i); i += 1) {
 		printf("%-6d | %-16u | %12f | %-32s\n", i, curteam->number, curteam->value, curteam->name);
 	}

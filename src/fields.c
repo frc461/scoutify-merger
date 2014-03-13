@@ -75,8 +75,10 @@ auto_shot_t string_to_auto_shot(char *auto_shot)
 {	auto_shot_t ret;
 
 	if(!strcmp(auto_shot, "Fail")) ret = AUTO_SHOT_FAIL;
-	else if(!strcmp(auto_shot, "High")) ret = AUTO_SHOT_HIGH;
-	else if(!strcmp(auto_shot, "Low")) ret = AUTO_SHOT_LOW;
+	else if(!strcmp(auto_shot, "Low (1 Ball)")) ret = AUTO_SHOT_LOW_1;
+	else if(!strcmp(auto_shot, "High (1 Ball)")) ret = AUTO_SHOT_HIGH_1;
+	else if(!strcmp(auto_shot, "Low (2 Ball)")) ret = AUTO_SHOT_LOW_2;
+	else if(!strcmp(auto_shot, "High (2 Ball)")) ret = AUTO_SHOT_HIGH_2;
 	else {
 		fprintf(stderr, "ERROR: Auto shot string not recognized: %s\n", auto_shot);
 		ret = 0;
@@ -92,12 +94,23 @@ char *auto_shot_to_string(int auto_shot)
 	case AUTO_SHOT_FAIL:
 		ret = "Fail";
 		break;
-	case AUTO_SHOT_HIGH:
-		ret = "High";
+
+	case AUTO_SHOT_LOW_1:
+		ret = "Low (1 Ball)";
 		break;
-	case AUTO_SHOT_LOW:
-		ret = "Low";
+
+	case AUTO_SHOT_HIGH_1:
+		ret = "High (1 Ball)";
 		break;
+
+	case AUTO_SHOT_LOW_2:
+		ret = "Low (2 Ball)";
+		break;
+
+	case AUTO_SHOT_HIGH_2:
+		ret = "High (2 Ball)";
+		break;
+
 	default:
 		fprintf(stderr, "ERROR: Auto shot integer not recognized: %u\n", auto_shot);
 		ret = "";
